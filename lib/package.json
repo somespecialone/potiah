@@ -1,0 +1,49 @@
+{
+  "name": "vuecomotive-scroll",
+  "version": "0.1.0",
+  "description": ".",
+  "keywords": [
+    "vue3",
+    "component",
+    "locomotive-scroll",
+    "scroll",
+    "typescript"
+  ],
+  "homepage": "https://github.com/somespecialone/vuecomotive-scroll#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/somespecialone/vuecomotive-scroll.git",
+    "directory": "lib"
+  },
+  "bugs": "https://github.com/somespecialone/vuecomotive-scroll/issues",
+  "license": "MIT",
+  "author": {
+    "name": "Dmytro Tkachenko",
+    "url": "https://somespecial.one"
+  },
+  "type": "module",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/vuecomotive-scroll.js",
+      "require": "./dist/vuecomotive-scroll.umd.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "main": "./dist/vuecomotive-scroll.umd.cjs",
+  "module": "./dist/vuecomotive-scroll.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "vite build && vue-tsc --emitDeclarationOnly"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.0"
+  },
+  "dependencies": {
+    "locomotive-scroll": "5.0.0-beta.8"
+  }
+}
