@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, markRaw } from 'vue'
 import type { App } from 'vue'
 
 import type Lenis from '@studio-freight/lenis'
@@ -20,6 +20,8 @@ export default class LocomotiveScroll extends LocomotiveScrollOrigin {
    * @internal
    */
   install(app: App) {
+    markRaw(this) // makes this non-reactive
+
     const isReady = ref(false)
     const direction = ref(1)
     const scrollTo: TScrollTo = (t, o) => isReady.value && this.lenis?.scrollTo(t, o)

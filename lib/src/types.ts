@@ -21,8 +21,22 @@ export interface IVuecomotiveScroll {
   scroll: LocomotiveScroll
 }
 
+export type TPosition =
+  | 'start'
+  | 'middle'
+  | 'end'
+  | 'start,start'
+  | 'start,middle'
+  | 'start,end'
+  | 'middle,start'
+  | 'middle,middle'
+  | 'middle,end'
+  | 'end,start'
+  | 'end,middle'
+  | 'end,end'
+
 export interface IScrollElementProps {
-  position?: 'start' | 'middle' | 'end'
+  position?: TPosition
   offset?: string
   inViewClass?: string
   repeat?: boolean

@@ -5,6 +5,7 @@ import { useVuecomotiveScroll, ScrollView, ScrollComponent } from 'vuecomotive-s
 
 const flag = ref(false)
 const duration = ref(1.4)
+const progress = ref(true)
 
 const { scrollTo, scroll } = useVuecomotiveScroll()
 
@@ -27,8 +28,6 @@ onMounted(() => {
 </template>
 
 <style lang="scss">
-@import '../../node_modules/locomotive-scroll/dist/locomotive-scroll.css';
-
 body {
   padding: 0;
   box-sizing: border-box;

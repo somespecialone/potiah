@@ -70,3 +70,7 @@ defineExpose({ scroll, isReady, direction, wrapper, content })
     </component>
   </component>
 </template>
+
+<style lang="css">
+@import '../../node_modules/locomotive-scroll/dist/locomotive-scroll.css';
+</style>

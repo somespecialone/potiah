@@ -1,18 +1,20 @@
 {
   "compilerOptions": {
     "module": "ESNext",
-    "target": "es2020",
+    "target": "ESNext",
     "lib": ["DOM", "ESNext", "DOM.Iterable"],
     //    "strict": true,
     "esModuleInterop": true,
-    "incremental": false,
     "skipLibCheck": true,
-    "moduleResolution": "node",
-    "outDir": "dist",
-    "declaration": true,
     "noUnusedLocals": true,
     "strictNullChecks": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    // output
+    "rootDir": "src",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "dist"
   },
-  "include": ["src/*.vue", "src/*.ts"]
+  "include": ["src/*.vue", "src/*.ts", "vue.d.ts"]
 }

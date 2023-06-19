@@ -2,11 +2,11 @@
   "name": "@vuecomotive-scroll/demo",
   "private": true,
   "scripts": {
-    "dev": "vite",
-    "build": "run-p type-check build-only",
-    "preview": "vite preview",
-    "build-only": "vite build",
-    "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false"
+    "demo:dev": "vite",
+    "demo:build": "run-p type-check build-only",
+    "demo:preview": "vite preview",
+    "demo:build-only": "vite build",
+    "demo:type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false"
   },
   "dependencies": {
     "vuecomotive-scroll": "workspace:*"

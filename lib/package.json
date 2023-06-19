@@ -1,18 +1,20 @@
 {
   "name": "vuecomotive-scroll",
   "version": "0.1.0",
-  "description": ".",
+  "description": "Vue wrapper for precious Locomotive scroll 🚂",
   "keywords": [
+    "typescript",
+    "vue",
     "vue3",
     "component",
-    "locomotive-scroll",
     "scroll",
-    "typescript"
+    "locomotive-scroll",
+    "lenis"
   ],
-  "homepage": "https://github.com/somespecialone/vuecomotive-scroll#readme",
+  "homepage": "https://vuecomotive.somespecial.one",
   "repository": {
     "type": "git",
-    "url": "https://github.com/somespecialone/vuecomotive-scroll.git",
+    "url": "git+https://github.com/somespecialone/vuecomotive-scroll.git",
     "directory": "lib"
   },
   "bugs": "https://github.com/somespecialone/vuecomotive-scroll/issues",
@@ -31,14 +33,19 @@
     ".": {
       "import": "./dist/vuecomotive-scroll.js",
       "require": "./dist/vuecomotive-scroll.umd.cjs",
-      "types": "./dist/index.d.ts"
-    }
+      "types": "./dist/index.d.ts",
+      "style": "./dist/lenis.css"
+    },
+    "./dist/*": "./dist/*"
   },
-  "main": "./dist/vuecomotive-scroll.umd.cjs",
-  "module": "./dist/vuecomotive-scroll.js",
-  "types": "./dist/index.d.ts",
+  "source": "src/index.ts",
+  "main": "dist/vuecomotive-scroll.js",
+  "umd:main": "dist/vuecomotive-scroll.umd.cjs",
+  "module": "dist/vuecomotive-scroll.js",
+  "types": "dist/index.d.ts",
+  "style": "dist/lenis.css",
   "scripts": {
-    "build": "vite build && vue-tsc --emitDeclarationOnly"
+    "lib:build": "vite build && vue-tsc"
   },
   "peerDependencies": {
     "vue": "^3.3.0"

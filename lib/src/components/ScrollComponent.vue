@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, inject, watch, watchEffect, onUnmounted, computed } from 'vue'
+import { onMounted, ref, shallowRef, inject, watch, watchEffect, onUnmounted, computed } from 'vue'
 
 import type ScrollElement from 'locomotive-scroll/dist/types/core/ScrollElement'
 
@@ -35,7 +35,7 @@ const emit = defineEmits<{
 const scroll = inject(scrollInstKey)!
 const isReady = inject(isReadyKey)!
 
-const scrollElement = ref<ScrollElement>()
+const scrollElement = shallowRef<ScrollElement>()
 
 watchEffect(() => {
   // @ts-expect-error
@@ -66,9 +66,47 @@ watch(
         scrollElement.value.attributes.scrollEventProgress = PROGRESS_EVENT
         window.addEventListener(PROGRESS_EVENT, handleProgressEvent)
       } else {
-        scrollElement.value.attributes.scrollEventProgress = ''
+        // @ts-ignore
+        scrollElement.value.attributes.scrollEventProgress = null
         window.removeEventListener(PROGRESS_EVENT, handleProgressEvent)
       }
+    }
+  }
+)
+
+watch(
+  () => [
+    props.position,
+    props.offset,
+    // props.inViewClass,
+    // props.repeat,
+    // props.speed,
+    props.cssProgress,
+    props.ignoreFold,
+    props.touchSpeed
+  ],
+  ([
+    pos,
+    offset,
+    // cl,
+    // scrollRepeat,
+    // scrollSpeed,
+    scrollCssProgress,
+    scrollIgnoreFold,
+    scrollEnableTouchSpeed
+  ]) => {
+    if (scrollElement.value) {
+      // https://github.com/locomotivemtl/locomotive-scroll/blob/v5-beta/src/core/ScrollElement.ts#L86
+      Object.assign(scrollElement.value.attributes, {
+        scrollPosition: pos ?? 'start,end',
+        scrollOffset: offset ?? '0,0',
+        // scrollClass: cl ?? 'is-inview',
+        // scrollRepeat,
+        // scrollSpeed,
+        scrollCssProgress,
+        scrollIgnoreFold,
+        scrollEnableTouchSpeed
+      })
     }
   }
 )
