@@ -3,6 +3,8 @@ import type { App } from 'vue'
 
 import type Lenis from '@studio-freight/lenis'
 import LocomotiveScrollOrigin from 'locomotive-scroll'
+import type ScrollElement from 'locomotive-scroll/dist/types/core/ScrollElement'
+import type Core from 'locomotive-scroll/dist/types/core/Core'
 
 import type { TScrollTo } from './types'
 import { directionIKey, isReadyKey, scrollInstKey, scrollToKey } from './keys'
@@ -11,6 +13,16 @@ import ScrollComponent from './components/ScrollComponent.vue'
 
 // @ts-expect-error
 export default class LocomotiveScroll extends LocomotiveScrollOrigin {
+  public get core(): Core | null {
+    // @ts-expect-error
+    return this.coreInstance || null
+  }
+
+  public get scrollElements(): ScrollElement[] {
+    // @ts-expect-error
+    return this.core?.scrollElements || []
+  }
+
   public get lenis(): Lenis | null {
     // @ts-expect-error
     return this.lenisInstance || null

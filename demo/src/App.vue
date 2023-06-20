@@ -19,7 +19,7 @@ onMounted(() => {
 
 <template>
   <ScrollView :duration="duration">
-    <ScrollComponent is="section" class="zero" ref="zero">Scroll comp text!!!</ScrollComponent>
+    <ScrollComponent is="section" class="zero" ref="zero" css-progress>Scroll comp text!!!</ScrollComponent>
     <div class="first" @click="scrollTo(blank)">Main div</div>
     <div class="second" data-scroll data-scroll-speed="0.2" :data-flag="flag">Child el!!!</div>
     <div class="third" @click="$scrollTo(zero.el)">Main third div</div>

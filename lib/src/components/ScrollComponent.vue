@@ -38,8 +38,7 @@ const isReady = inject(isReadyKey)!
 const scrollElement = shallowRef<ScrollElement>()
 
 watchEffect(() => {
-  // @ts-expect-error
-  isReady.value && (scrollElement.value = scroll.coreInstance.scrollElements.find((v) => v.$el.id === el.value.id))
+  isReady.value && (scrollElement.value = scroll.scrollElements.find((v) => v.$el.id === el.value?.id))
 })
 
 const inView = ref(false)

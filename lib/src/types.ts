@@ -4,7 +4,8 @@ import type {
   scrollCallFrom,
   ILenisScrollToOptions,
   lenisTargetScrollTo,
-  ILocomotiveScrollOptions
+  ILocomotiveScrollOptions,
+  ILenisOptions
 } from 'locomotive-scroll/dist/types/types'
 
 import type LocomotiveScroll from './scroll'
@@ -20,6 +21,8 @@ export interface IVuecomotiveScroll {
   direction: Ref<number>
   scroll: LocomotiveScroll
 }
+
+export type TLenisOptions = Omit<ILenisOptions, 'wrapper' | 'content'>
 
 export type TPosition =
   | 'start'

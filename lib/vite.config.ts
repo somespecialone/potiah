@@ -7,15 +7,12 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'VuecomotiveScroll',
-      fileName: 'vuecomotive-scroll'
+      name: 'VuecomotiveScroll'
     },
     rollupOptions: {
       external: ['vue'],
       output: {
-        assetFileNames: (a) => {
-          return a.name == 'style.css' ? 'lenis.css' : a.name
-        },
+        assetFileNames: 'lenis.css',
         globals: {
           vue: 'Vue'
         }
