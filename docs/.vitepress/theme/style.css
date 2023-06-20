@@ -1,0 +1,121 @@
+/**
+ * Customize default theme styling by overriding CSS variables:
+ * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
+ */
+
+/**
+ * Colors
+ * -------------------------------------------------------------------------- */
+
+:root {
+    --vp-c-brand: #ff7575;
+    --vp-c-brand-light: #FF5959;
+    --vp-c-brand-lighter: #9499ff;
+    --vp-c-brand-lightest: #bcc0ff;
+    --vp-c-brand-dark: var(--vp-c-brand-light);
+    --vp-c-brand-darker: #454ce1;
+    --vp-c-brand-dimm: rgba(100, 108, 255, 0.08);
+}
+
+
+/**
+ * Component: Button
+ * -------------------------------------------------------------------------- */
+
+:root {
+    --vp-button-brand-border: var(--vp-c-brand-light);
+    --vp-button-brand-text: var(--vp-c-text-light-1);
+    --vp-button-brand-bg: var(--vp-c-brand);
+    --vp-button-brand-hover-border: var(--vp-c-brand-light);
+    --vp-button-brand-hover-text: var(--vp-button-brand-text);
+    --vp-button-brand-hover-bg: var(--vp-c-brand-light);
+    --vp-button-brand-active-border: var(--vp-c-brand-light);
+    --vp-button-brand-active-text: var(--vp-button-brand-text);
+    --vp-button-brand-active-bg: var(--vp-button-brand-bg);
+}
+
+/**
+ * Component: Home
+ * -------------------------------------------------------------------------- */
+
+:root {
+    --vp-home-hero-name-color: transparent;
+    /*--vp-home-hero-name-background: linear-gradient(*/
+    /*        120deg,*/
+    /*        var(--vp-c-brand) 20%,*/
+    /*        var(--vp-c-green-light)*/
+    /*);*/
+
+    --vp-home-hero-image-background-image: linear-gradient(
+            110deg,
+            var(--vp-c-green-light) 13%,
+            var(--vp-c-brand),
+            var(--vp-c-green-light) 87%
+    );
+    --vp-home-hero-image-filter: blur(40px);
+}
+
+@media (min-width: 640px) {
+    :root {
+        --vp-home-hero-image-filter: blur(56px);
+    }
+}
+
+@media (min-width: 960px) {
+    :root {
+        --vp-home-hero-image-filter: blur(72px);
+    }
+}
+
+/**
+ * Component: Custom Block
+ * -------------------------------------------------------------------------- */
+
+:root {
+    --vp-custom-block-tip-border: var(--vp-c-brand-lighter);
+    --vp-custom-block-tip-text: var(--vp-c-brand-darker);
+    --vp-custom-block-tip-bg: var(--vp-c-brand-dimm);
+}
+
+.dark {
+    --vp-custom-block-tip-border: var(--vp-c-brand-lighter);
+    --vp-custom-block-tip-text: var(--vp-c-brand-lightest);
+    --vp-custom-block-tip-bg: var(--vp-c-brand-dimm);
+}
+
+/**
+ * Component: Algolia
+ * -------------------------------------------------------------------------- */
+
+.DocSearch {
+    --docsearch-primary-color: var(--vp-c-brand) !important;
+}
+
+/* custom */
+
+[href="https://stand-with-ukraine.pp.ua/"] {
+    background: linear-gradient(
+            180deg,
+            rgb(0, 167, 255) 0%,
+            rgb(0, 167, 255) 49%,
+            rgb(235, 255, 0) 50%,
+            rgb(235, 255, 0) 100%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+
+    color: var(--vp-c-brand) !important;
+}
+
+[href="https://stand-with-ukraine.pp.ua/"]:hover {
+    color: transparent !important;
+}
+
+/* scrollbars */
+::-webkit-scrollbar {
+    /*width: 0;*/
+}
+
+* {
+    /*scrollbar-width: none;*/
+}
