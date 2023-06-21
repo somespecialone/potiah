@@ -28,10 +28,10 @@ export default defineConfig({
       }
     ],
     socialLinks: [{ icon: 'github', link: 'https://github.com/somespecialone/vuecomotive-scroll' }],
-    footer: {
-      copyright: '© 2023 Dmytro Tkachenko',
-      message: 'Released under the MIT License.'
-    },
+    // footer: {
+    //   copyright: '© 2023 Dmytro Tkachenko',
+    //   message: 'Released under the MIT License.'
+    // },
     editLink: {
       pattern: 'https://github.com/somespecialone/vuecomotive-scroll/edit/master/docs/:path',
       text: 'Edit this page on GitHub'

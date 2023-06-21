@@ -31,5 +31,5 @@ features:
     details: Build captivating and interactive scrolling experiences using native Vue.js features.
   - icon: ⚡
     title: Thin & ease
-    details: Provides a lightweight and minimalistic wrapper for effortless integration with Locomotive Scroll.
+    details: Lightweight and minimalistic wrapper for effortless integration with Locomotive Scroll.
 ---
