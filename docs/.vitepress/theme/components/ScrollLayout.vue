@@ -17,25 +17,19 @@ const scrollView = ref<InstanceType<typeof ScrollView> | null>(null)
 const isHome = computed(() => route.path == '/')
 const active = ref(false)
 const visited = ref(false)
-watch(route, () => (visited.value = true))
-
-// optimization
-let VPNavBar: HTMLElement
-let VPHeroBar: HTMLElement
-
-onMounted(() => {
-  VPNavBar = document.getElementsByClassName('VPNavBar')[0] as HTMLElement
-  VPHeroBar = document.getElementsByClassName('VPHomeHero')[0] as HTMLElement
+watch(route, () => {
+  visited.value = true
+  scroll.destroy()
 })
+
+// onMounted(() => {})
 
 function handleScroll({ progress }) {
   const wrapper: HTMLElement = scrollView.value!.wrapper
   wrapper.style.setProperty('--blank-progress', progress.toString())
   if (progress >= 0.95 && !active.value) {
-    VPNavBar.classList.add('fill')
     active.value = true
   } else if (progress < 0.95 && active.value) {
-    VPNavBar.classList.remove('fill')
     active.value = false
   }
 }
@@ -58,7 +52,10 @@ function handleScroll({ progress }) {
 </template>
 
 <style lang="scss">
+// styles only for home page
 .vuecomotive-scroll-wrapper {
+  --blank-progress: 1;
+
   height: 100vh;
   overflow-y: hidden;
 
@@ -68,6 +65,12 @@ function handleScroll({ progress }) {
 
   .VPNav {
     transform: translateY(calc((1 - var(--blank-progress)) * -100%));
+
+    .content-body {
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      background-color: transparent !important;
+    }
   }
 
   .VPHome {
@@ -84,6 +87,10 @@ function handleScroll({ progress }) {
         );
         background-clip: text;
         -webkit-background-clip: text;
+      }
+
+      .main .tagline {
+        opacity: var(--blank-progress);
       }
 
       .actions {
@@ -119,7 +126,7 @@ function handleScroll({ progress }) {
     }
 
     .VPHomeFeatures {
-      transform: translateY(calc((1 - var(--blank-progress)) * -300%));
+      transform: translateY(calc((1 - var(--blank-progress)) * -200%));
     }
   }
 

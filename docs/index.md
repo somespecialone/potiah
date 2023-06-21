@@ -3,28 +3,33 @@
 layout: home
 
 title: Vuecomotive
-titleTemplate: Vue.js wrapper for precious Locomotive Scroll
+titleTemplate: Vue.js wrapper for Locomotive Scroll
 
 hero:
   name: Vuecomotive Scroll
-  text: Vue.js wrapper for precious Locomotive Scroll
-  tagline: My great project tagline
-  image:
-    src: /logo.svg
-    alt: Vuecomotive
+  text: Vue.js wrapper for Locomotive Scroll
+  tagline: Component-oriented, type safe, easy
+  #  image:
+  #    src: /logo.svg
+  #    alt: Vuecomotive
   actions:
     - theme: brand
       text: Get Started
       link: /guide
     - theme: alt
-      text: API Examples
-      link: /api
+      text: View on GitHub
+      link: https://github.com/somespecialone/vuecomotive-scroll
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - icon: 🛤️
+    title: Locomotive Scroll
+    details: Detection of elements in viewport & smooth scrolling with parallax.
+    link: https://github.com/locomotivemtl/locomotive-scroll
+    linkText: Know more
+  - icon: 🧩
+    title: Components & Composition
+    details: Build captivating and interactive scrolling experiences using native Vue.js features.
+  - icon: ⚡
+    title: Thin & ease
+    details: Provides a lightweight and minimalistic wrapper for effortless integration with Locomotive Scroll.
 ---
