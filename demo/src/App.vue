@@ -18,7 +18,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <ScrollView :duration="duration">
+  <ScrollView :duration="duration" root css-progress>
     <ScrollComponent is="section" class="zero" ref="zero" css-progress>Scroll comp text!!!</ScrollComponent>
     <div class="first" @click="scrollTo(blank)">Main div</div>
     <div class="second" data-scroll data-scroll-speed="0.2" :data-flag="flag">Child el!!!</div>
@@ -41,8 +41,8 @@ body {
 }
 
 .vuecomotive-scroll-wrapper {
-  height: 100vh;
-  overflow-y: hidden;
+  //height: 100vh;
+  //overflow-y: hidden;
   color: palevioletred;
 }
 
