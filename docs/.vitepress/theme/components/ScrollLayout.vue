@@ -7,6 +7,7 @@ import { ScrollView, ScrollComponent, useVuecomotiveScroll } from 'vuecomotive-s
 
 import HomeLogo from './HomeLogo.vue'
 import MouseIco from './MouseIco.vue'
+import ArrowIco from './ArrowIco.vue'
 
 const { Layout } = DefaultTheme
 
@@ -14,18 +15,16 @@ const { scroll } = useVuecomotiveScroll()
 
 const route = useRoute()
 
-const scrollView = ref<InstanceType<typeof ScrollView> | null>(null)
 const isHome = computed(() => route.path == '/')
 const active = ref(false)
 const visited = ref(false)
 watch(route, () => {
   visited.value = true
-  scroll.destroy()
+  active.value = true
 })
 
 function handleScroll({ progress }) {
-  const wrapper: HTMLElement = scrollView.value!.wrapper
-  wrapper.style.setProperty('--blank-progress', progress.toString())
+  document.documentElement.style.setProperty('--wrapper-progress', progress.toString())
   if (progress >= 0.95 && !active.value) {
     active.value = true
   } else if (progress < 0.95 && active.value) {
@@ -35,11 +34,14 @@ function handleScroll({ progress }) {
 </script>
 
 <template>
-  <ScrollView v-if="isHome" :class="{ active }" ref="scrollView" wrapper-is="div" :duration="1.7">
-    <Layout>
+  <ScrollView v-if="isHome" :duration="1.7" root>
+    <Layout class="home" :class="{ active }">
       <template #layout-top>
-        <ScrollComponent v-if="!visited" class="blank" event-progress @progress="handleScroll">
-          <MouseIco class="scroll-down" />
+        <ScrollComponent v-if="!visited" class="blank" @progress="handleScroll">
+          <div class="scroll-down">
+            <MouseIco />
+            <ArrowIco class="arrow" />
+          </div>
         </ScrollComponent>
         <div class="copyright">© 2023 Dmytro Tkachenko. Released under the MIT License.</div>
       </template>
@@ -53,28 +55,31 @@ function handleScroll({ progress }) {
 
 <style lang="scss">
 // styles only for home page
-.vuecomotive-scroll-wrapper {
-  .vuecomotive-scroll-content {
-    position: relative;
-  }
-
-  --blank-progress: 1;
-
-  height: 100vh;
-  overflow-y: hidden;
+.Layout.home {
+  overflow: hidden;
 
   .blank {
     height: 100vh;
 
-    svg {
+    .scroll-down {
       position: fixed;
       z-index: -2;
       bottom: 1em;
       left: 50%;
 
-      height: 3.5em;
+      width: 3.5em;
 
       transform: translateX(-50%);
+
+      svg {
+        width: 100%;
+      }
+
+      .arrow {
+        rotate: 180deg;
+
+        animation: float 1s infinite alternate ease-in-out;
+      }
     }
   }
 
@@ -100,6 +105,11 @@ function handleScroll({ progress }) {
       backdrop-filter: none;
       background-color: transparent !important;
     }
+
+    .VPNavBar.fill {
+      background-color: transparent;
+      border-bottom: none;
+    }
   }
 
   #VPContent {
@@ -109,12 +119,12 @@ function handleScroll({ progress }) {
       padding-bottom: 20px !important;
 
       .VPHomeHero {
-        transform: translateY(calc((1 - var(--blank-progress)) * (-100vh + 10%)));
+        transform: translateY(calc((1 - var(--wrapper-progress)) * (-100vh + 10%)));
 
         .name .clip {
           background: linear-gradient(
             120deg,
-            var(--vp-c-brand) calc(((1 - var(--blank-progress)) * -200%) + 20%),
+            var(--vp-c-brand) calc(((1 - var(--wrapper-progress)) * -200%) + 20%),
             var(--vp-c-green-light)
           );
           background-clip: text;
@@ -122,7 +132,7 @@ function handleScroll({ progress }) {
         }
 
         .main .tagline {
-          opacity: var(--blank-progress);
+          opacity: var(--wrapper-progress);
         }
 
         .actions {
@@ -135,16 +145,16 @@ function handleScroll({ progress }) {
           overflow: unset;
 
           #logo-vue {
-            transform: translateY(calc((1 - var(--blank-progress)) * -45%));
+            transform: translateY(calc((1 - var(--wrapper-progress)) * -45%));
           }
 
           #logo-train,
           #logo-rails {
-            transform: translateY(calc((1 - var(--blank-progress)) * +60%));
+            transform: translateY(calc((1 - var(--wrapper-progress)) * +60%));
           }
 
           #logo-lights {
-            opacity: var(--blank-progress);
+            opacity: var(--wrapper-progress);
           }
         }
 
@@ -153,12 +163,12 @@ function handleScroll({ progress }) {
 
           background-repeat: no-repeat;
           background-position: center;
-          background-size: calc(var(--blank-progress) * 100%);
+          background-size: calc(var(--wrapper-progress) * 100%);
         }
       }
 
       .VPHomeFeatures {
-        transform: translateY(calc((1 - var(--blank-progress)) * -200%));
+        transform: translateY(calc((1 - var(--wrapper-progress)) * -200%));
 
         &:after {
           content: '';
@@ -179,26 +189,11 @@ function handleScroll({ progress }) {
     }
   }
 
-  .VPFooter {
-    position: absolute;
-    bottom: 0;
-
-    width: 100%;
-    height: 2.5em;
-
-    padding: 0 !important;
-    display: flex;
-    align-items: center;
-
-    p {
-      margin: 0 !important;
-      padding: 0 !important;
-      font-size: 12px !important;
-      line-height: 1.2em;
-    }
-  }
-
   &.active {
+    .blank .scroll-down .arrow {
+      animation: none;
+    }
+
     .copyright {
       transform: translateY(0);
     }
@@ -218,27 +213,27 @@ function handleScroll({ progress }) {
       }
     }
   }
+}
 
-  @media screen and (max-width: 960px) {
-    & {
-      .VPNav {
-        position: fixed;
+@media screen and (max-width: 960px) {
+  .Layout.home {
+    .VPNav {
+      position: fixed;
 
-        background-color: var(--vp-c-bg);
-        border-bottom: 1px var(--vp-c-gutter) solid;
+      background-color: var(--vp-c-bg);
+      border-bottom: 1px var(--vp-c-gutter) solid;
+    }
+
+    #VPContent .VPHome {
+      .main {
+        transform: translateY(calc((1 - var(--wrapper-progress)) * 48px));
       }
 
-      #VPContent .VPHome {
-        .main {
-          transform: translateY(calc((1 - var(--blank-progress)) * 48px));
-        }
+      .VPHomeFeatures {
+        transform: none;
 
-        .VPHomeFeatures {
-          transform: none;
-
-          &:after {
-            height: 100%;
-          }
+        &:after {
+          height: 100%;
         }
       }
     }
@@ -251,6 +246,15 @@ function handleScroll({ progress }) {
   }
   to {
     opacity: 1;
+  }
+}
+
+@keyframes float {
+  from {
+    transform: translateY(-10%);
+  }
+  to {
+    transform: translateY(10%);
   }
 }
 </style>

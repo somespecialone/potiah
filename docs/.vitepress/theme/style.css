@@ -117,27 +117,18 @@
     color: transparent !important;
 }
 
-/* scrollbars */
-::-webkit-scrollbar {
-    width: 0;
-}
-
-* {
-    scrollbar-width: none;
-}
-
 .VPNavBar .title a:hover {
     opacity: 0.7;
 }
 
 /* from previous version */
 @media screen and (min-width: 960px) {
-    .VPNavBar .curtain {
+    .Layout .VPNavBar .curtain {
         display: none;
     }
 
     @supports ((backdrop-filter: saturate(50%) blur(8px)) or (-webkit-backdrop-filter: saturate(50%) blur(8px))) {
-        .VPNavBar .content-body {
+        .Layout .VPNavBar .content-body {
             -webkit-backdrop-filter: saturate(50%) blur(8px);
             backdrop-filter: saturate(50%) blur(8px);
             background: var(--vp-c-bg-alpha) !important;
@@ -145,7 +136,7 @@
     }
 
     @supports not ((backdrop-filter: saturate(50%) blur(8px)) or (-webkit-backdrop-filter: saturate(50%) blur(8px))) {
-        .VPNavBar .content-body {
+        .Layout .VPNavBar .content-body {
             border-bottom: 1px solid var(--vp-c-gutter);
         }
     }

@@ -2,20 +2,16 @@
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
 
-title: Vuecomotive
 titleTemplate: Vue.js wrapper for Locomotive Scroll
 
 hero:
   name: Vuecomotive Scroll
   text: Vue.js wrapper for Locomotive Scroll
   tagline: Component-oriented, type safe, easy
-  #  image:
-  #    src: /logo.svg
-  #    alt: Vuecomotive
   actions:
     - theme: brand
       text: Get Started
-      link: /guide
+      link: /guide/getting-started
     - theme: alt
       text: View on GitHub
       link: https://github.com/somespecialone/vuecomotive-scroll
