@@ -20,3 +20,11 @@ export function assignWithOmit<T extends {}, S extends Record<string, any>, K ex
 export function boolToDataAttr(v: boolean | undefined): '' | null {
   return v ? '' : null
 }
+
+export function* infiniteGenerator() {
+  let i = 0
+
+  while (true) {
+    yield i++
+  }
+}

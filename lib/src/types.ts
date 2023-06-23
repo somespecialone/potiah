@@ -19,6 +19,7 @@ export interface IVuecomotiveScroll {
 
   isReady: Ref<boolean>
   direction: Ref<number>
+  isScrolling: Ref<boolean>
   scroll: LocomotiveScroll
 }
 
@@ -28,6 +29,9 @@ export type TPosition =
   | 'start'
   | 'middle'
   | 'end'
+  | ',start'
+  | ',middle'
+  | ',end'
   | 'start,start'
   | 'start,middle'
   | 'start,end'
@@ -45,7 +49,6 @@ export interface IScrollElementProps {
   repeat?: boolean
   speed?: number
   cssProgress?: boolean
-  eventProgress?: boolean
   ignoreFold?: boolean
   touchSpeed?: boolean
 }

@@ -1,18 +1,37 @@
-import { ref, markRaw } from 'vue'
+import { ref, markRaw, Ref } from 'vue'
 import type { App } from 'vue'
 
 import type Lenis from '@studio-freight/lenis'
 import LocomotiveScrollOrigin from 'locomotive-scroll'
 import type ScrollElement from 'locomotive-scroll/dist/types/core/ScrollElement'
 import type Core from 'locomotive-scroll/dist/types/core/Core'
+import type { lenisTargetScrollTo, ILenisScrollToOptions } from 'locomotive-scroll/dist/types/types'
 
-import type { TScrollTo } from './types'
-import { directionIKey, isReadyKey, scrollInstKey, scrollToKey } from './keys'
+// import type { TScrollTo } from './types'
+import { scrollInstKey, scrollToKey } from './keys'
 import ScrollView from './components/ScrollView.vue'
 import ScrollComponent from './components/ScrollComponent.vue'
+import { infiniteGenerator } from './utils'
 
 // @ts-expect-error
 export default class LocomotiveScroll extends LocomotiveScrollOrigin {
+  public isReady: Ref<boolean>
+  public direction: Ref<number>
+  public isScrolling: Ref<boolean>
+
+  _idGenerator: Generator<number>
+
+  /**
+   * @internal
+   */
+  getId(): number {
+    return this._idGenerator.next().value
+  }
+
+  public scrollTo(target: lenisTargetScrollTo, options?: ILenisScrollToOptions) {
+    this.isReady.value && this.lenis?.scrollTo(target, options)
+  }
+
   public get core(): Core | null {
     // @ts-expect-error
     return this.coreInstance || null
@@ -34,9 +53,11 @@ export default class LocomotiveScroll extends LocomotiveScrollOrigin {
   install(app: App) {
     markRaw(this) // makes this non-reactive
 
-    const isReady = ref(false)
-    const direction = ref(1)
-    const scrollTo: TScrollTo = (t, o) => isReady.value && this.lenis?.scrollTo(t, o)
+    this._idGenerator = infiniteGenerator()
+    this.isReady = ref(false)
+    this.direction = ref(1)
+    this.isScrolling = ref(false)
+    const scrollTo = this.scrollTo.bind(this)
 
     app.component('ScrollView', ScrollView)
     app.component('ScrollComponent', ScrollComponent)
@@ -44,8 +65,6 @@ export default class LocomotiveScroll extends LocomotiveScrollOrigin {
     app.config.globalProperties.$scrollTo = scrollTo
 
     app.provide(scrollInstKey, this)
-    app.provide(isReadyKey, isReady)
-    app.provide(directionIKey, direction)
     app.provide(scrollToKey, scrollTo)
   }
 
@@ -55,8 +74,43 @@ export default class LocomotiveScroll extends LocomotiveScrollOrigin {
   /**
    * @internal
    */
-  init() {
+  init(doneCallback = (data: { core: Core; lenis: Lenis }) => {}) {
+    const self = this
+    // max performance
+    let direction = 1
+    let isScrolling = false
+
+    // @ts-expect-error
+    this.scrollCallback = (l: Lenis) => {
+      direction != l.direction && (this.direction.value = direction = l.direction)
+    }
+
     // @ts-expect-error
     super._init()
+
+    // waiting for Core, Lenis instances in `_init` will be created
+    requestAnimationFrame(() => {
+      // patch Lenis property
+      // https://github.com/studio-freight/lenis/blob/0370ab155771e2e6771f2039c7d15514662af975/src/index.js#L455
+      const descr = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(this.lenis!), 'isScrolling')!
+      Object.defineProperty(this.lenis!, 'isScrolling', {
+        get() {
+          return descr.get!.call(this)
+        },
+        set(value: boolean) {
+          descr.set!.call(this, value)
+          isScrolling != value && (self.isScrolling.value = isScrolling = value)
+        }
+      })
+
+      this.isReady.value = true
+
+      doneCallback({ core: this.core!, lenis: this.lenis! })
+    })
+  }
+
+  public destroy() {
+    this.isReady.value = false
+    super.destroy()
   }
 }

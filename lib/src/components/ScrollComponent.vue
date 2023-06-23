@@ -5,11 +5,11 @@ import type ScrollElement from 'locomotive-scroll/dist/types/core/ScrollElement'
 
 import type { IScrollElementProps, IIntersectEventPayload, IProgressEventPayload } from '../types'
 
-import { isReadyKey, scrollInstKey } from '../keys'
+import { scrollInstKey } from '../keys'
 import { boolToDataAttr } from '../utils'
 
-const INTERSECT_EVENT = 'intersectEvent'
-const PROGRESS_EVENT = 'progressEvent'
+const INTERSECT_EVENT_SUFFIX = 'vs-iE-'
+const PROGRESS_EVENT_SUFFIX = 'vs-pE-'
 
 export interface IComponentProps {
   is?: keyof HTMLElementTagNameMap | string
@@ -19,7 +19,6 @@ export interface IComponentProps {
 const props = withDefaults(defineProps<IComponentProps & IScrollElementProps>(), {
   is: 'div'
 })
-const progressEvent = computed(() => (props.eventProgress ? PROGRESS_EVENT : null))
 const dataRepeat = computed(() => boolToDataAttr(props.repeat))
 const dataCssProgress = computed(() => boolToDataAttr(props.cssProgress))
 const dataIgnoreFold = computed(() => boolToDataAttr(props.ignoreFold))
@@ -33,15 +32,16 @@ const emit = defineEmits<{
 }>()
 
 const scroll = inject(scrollInstKey)!
-const isReady = inject(isReadyKey)!
+const eventId = scroll.getId()
+const intersectEventName = INTERSECT_EVENT_SUFFIX + eventId
+const progressEventName = PROGRESS_EVENT_SUFFIX + eventId
 
 const scrollElement = shallowRef<ScrollElement>()
+const inView = ref(false)
 
 watchEffect(() => {
-  isReady.value && (scrollElement.value = scroll.scrollElements.find((v) => v.$el.id === el.value?.id))
+  scroll.isReady.value && (scrollElement.value = scroll.scrollElements.find((v) => v.$el === el.value))
 })
-
-const inView = ref(false)
 
 function handleScrollEvent({ detail }: CustomEvent<IIntersectEventPayload>) {
   inView.value = detail.way == 'enter'
@@ -53,25 +53,9 @@ function handleProgressEvent({ detail }: CustomEvent<IProgressEventPayload>) {
 }
 
 onMounted(() => {
-  window.addEventListener(INTERSECT_EVENT, handleScrollEvent)
-  props.eventProgress && window.addEventListener(PROGRESS_EVENT, handleProgressEvent)
+  window.addEventListener(intersectEventName, handleScrollEvent)
+  window.addEventListener(progressEventName, handleProgressEvent)
 })
-
-watch(
-  () => props.eventProgress,
-  (e) => {
-    if (scrollElement.value) {
-      if (e) {
-        scrollElement.value.attributes.scrollEventProgress = PROGRESS_EVENT
-        window.addEventListener(PROGRESS_EVENT, handleProgressEvent)
-      } else {
-        // @ts-ignore
-        scrollElement.value.attributes.scrollEventProgress = null
-        window.removeEventListener(PROGRESS_EVENT, handleProgressEvent)
-      }
-    }
-  }
-)
 
 watch(
   () => [
@@ -111,8 +95,8 @@ watch(
 )
 
 onUnmounted(() => {
-  window.removeEventListener(INTERSECT_EVENT, handleScrollEvent)
-  props.eventProgress && window.removeEventListener(PROGRESS_EVENT, handleProgressEvent)
+  window.removeEventListener(intersectEventName, handleScrollEvent)
+  window.removeEventListener(progressEventName, handleProgressEvent)
 })
 
 defineExpose({ el, scrollElement, inView })
@@ -124,8 +108,8 @@ defineExpose({ el, scrollElement, inView })
     :is="is as string"
     ref="el"
     data-scroll
-    :data-scroll-call="INTERSECT_EVENT"
-    :data-scroll-event-progress="progressEvent"
+    :data-scroll-call="intersectEventName"
+    :data-scroll-event-progress="progressEventName"
     :data-scroll-position="position"
     :data-scroll-repeat="dataRepeat"
     :data-scroll-css-progress="dataCssProgress"
