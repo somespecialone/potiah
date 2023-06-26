@@ -8,7 +8,7 @@ import type {
   ILenisOptions
 } from 'locomotive-scroll/dist/types/types'
 
-import type LocomotiveScroll from './scroll'
+import type VuecomotiveScroll from './scroll'
 
 export type TCreateFuncOptions = Omit<ILocomotiveScrollOptions, 'lenisOptions' | 'scrollCallback'>
 
@@ -20,7 +20,7 @@ export interface IVuecomotiveScroll {
   isReady: Ref<boolean>
   direction: Ref<number>
   isScrolling: Ref<boolean>
-  scroll: LocomotiveScroll
+  scroll: VuecomotiveScroll
 }
 
 export type TLenisOptions = Omit<ILenisOptions, 'wrapper' | 'content'>

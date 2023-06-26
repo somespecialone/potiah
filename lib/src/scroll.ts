@@ -1,20 +1,19 @@
-import { ref, markRaw, Ref } from 'vue'
-import type { App } from 'vue'
+import { ref, markRaw } from 'vue'
+import type { App, Ref } from 'vue'
 
 import type Lenis from '@studio-freight/lenis'
-import LocomotiveScrollOrigin from 'locomotive-scroll'
+import LocomotiveScroll from 'locomotive-scroll'
 import type ScrollElement from 'locomotive-scroll/dist/types/core/ScrollElement'
 import type Core from 'locomotive-scroll/dist/types/core/Core'
 import type { lenisTargetScrollTo, ILenisScrollToOptions } from 'locomotive-scroll/dist/types/types'
 
-// import type { TScrollTo } from './types'
 import { scrollInstKey, scrollToKey } from './keys'
 import ScrollView from './components/ScrollView.vue'
 import ScrollComponent from './components/ScrollComponent.vue'
 import { infiniteGenerator } from './utils'
 
 // @ts-expect-error
-export default class LocomotiveScroll extends LocomotiveScrollOrigin {
+export default class VuecomotiveScroll extends LocomotiveScroll {
   public isReady: Ref<boolean>
   public direction: Ref<number>
   public isScrolling: Ref<boolean>

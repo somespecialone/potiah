@@ -2,19 +2,19 @@ import type { TCreateFuncOptions } from './types'
 
 export * from './global'
 
-import LocomotiveScroll from './scroll'
-import useVuecomotiveScroll from './hook'
+import VuecomotiveScroll from './scroll'
+import useScroll from './hook'
 
 export { assignWithOmit, boolToDataAttr } from './utils'
 
 import ScrollView from './components/ScrollView.vue'
 import ScrollComponent from './components/ScrollComponent.vue'
 
-export default function createVuecomotiveScroll(options?: TCreateFuncOptions): LocomotiveScroll {
-  return new LocomotiveScroll(options)
+export default function createVuecomotiveScroll(options?: TCreateFuncOptions): VuecomotiveScroll {
+  return new VuecomotiveScroll(options)
 }
 
-export { LocomotiveScroll, useVuecomotiveScroll, ScrollView, ScrollComponent }
+export { VuecomotiveScroll, useScroll, ScrollView, ScrollComponent }
 export type {
   IVuecomotiveScroll,
   IIntersectEventPayload,

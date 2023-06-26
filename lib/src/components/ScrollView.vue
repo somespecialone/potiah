@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, watch, ref, inject } from 'vue'
+import { onMounted, onBeforeUnmount, watch, ref, inject } from 'vue'
 
 import type Lenis from '@studio-freight/lenis'
 
@@ -53,6 +53,8 @@ watch(
 )
 
 onMounted(() => {
+  scroll.isReady.value && scroll.destroy() // clear previous mounted data
+
   // @ts-expect-error
   assignWithOmit(scroll.lenisOptions, props, ['wrapperIs', 'contentIs'])
 
@@ -77,7 +79,7 @@ watch(props, (n) => {
   Object.assign(scroll.lenisOptions, newProps)
 })
 
-onUnmounted(() => scroll.destroy())
+onBeforeUnmount(() => scroll.destroy())
 
 defineExpose({ scroll, wrapper, content })
 </script>
