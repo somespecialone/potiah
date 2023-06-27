@@ -39,12 +39,15 @@
     "./dist/*": "./dist/*"
   },
   "source": "src/index.ts",
+  "unpkg": "dist/vuecomotive-scroll.umd.cjs",
   "main": "dist/vuecomotive-scroll.js",
   "umd:main": "dist/vuecomotive-scroll.umd.cjs",
   "module": "dist/vuecomotive-scroll.js",
   "types": "dist/index.d.ts",
   "style": "dist/lenis.css",
   "scripts": {
+    "prepack": "node ../scripts/prepack.mjs",
+    "postpack": "node ../scripts/postpack.mjs",
     "lib:build": "vite build && vue-tsc"
   },
   "peerDependencies": {
