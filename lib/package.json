@@ -55,5 +55,8 @@
   },
   "dependencies": {
     "locomotive-scroll": "5.0.0-beta.8"
+  },
+  "devDependencies": {
+    "rollup-plugin-modify": "^3.0.0"
   }
 }

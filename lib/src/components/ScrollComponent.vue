@@ -16,9 +16,7 @@ export interface IComponentProps {
 }
 
 // @ts-ignore
-const props = withDefaults(defineProps<IComponentProps & IScrollElementProps>(), {
-  is: 'div'
-})
+const props = withDefaults(defineProps<IComponentProps & IScrollElementProps>(), { is: 'div' })
 const dataRepeat = computed(() => boolToDataAttr(props.repeat))
 const dataCssProgress = computed(() => boolToDataAttr(props.cssProgress))
 const dataIgnoreFold = computed(() => boolToDataAttr(props.ignoreFold))

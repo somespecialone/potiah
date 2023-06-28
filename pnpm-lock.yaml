@@ -81,6 +81,10 @@ importers:
       vue:
         specifier: ^3.3.0
         version: 3.3.4
+    devDependencies:
+      rollup-plugin-modify:
+        specifier: ^3.0.0
+        version: 3.0.0
 
 packages:
 
@@ -1628,6 +1632,12 @@ packages:
       yallist: 4.0.0
     dev: true
 
+  /magic-string@0.25.2:
+    resolution: {integrity: sha512-iLs9mPjh9IuTtRsqqhNGYcZXGei0Nh/A4xirrsqW7c+QhKVFL2vm7U09ru6cHRD22azaP/wMDgI+HCqbETMTtg==}
+    dependencies:
+      sourcemap-codec: 1.4.8
+    dev: true
+
   /magic-string@0.30.0:
     resolution: {integrity: sha512-LA+31JYDJLs82r2ScLrlz1GjSgu66ZV518eyWT+S8VhyQn/JL0u9MeBOvQMGYiPk1DBiSN9DDMOcXvigJZaViQ==}
     engines: {node: '>=12'}
@@ -1716,6 +1726,13 @@ packages:
       prelude-ls: 1.2.1
       type-check: 0.4.0
       word-wrap: 1.2.3
+    dev: true
+
+  /ospec@3.1.0:
+    resolution: {integrity: sha512-+nGtjV3vlADp+UGfL51miAh/hB4awPBkQrArhcgG4trAaoA2gKt5bf9w0m9ch9zOr555cHWaCHZEDiBOkNZSxw==}
+    hasBin: true
+    dependencies:
+      glob: 7.2.3
     dev: true
 
   /p-limit@3.1.0:
@@ -1838,6 +1855,13 @@ packages:
       glob: 7.2.3
     dev: true
 
+  /rollup-plugin-modify@3.0.0:
+    resolution: {integrity: sha512-p/ffs0Y2jz2dEnWjq1oVC7SY37tuS+aP7whoNaQz1EAAOPg+k3vKJo8cMMWx6xpdd0NzhX4y2YF9o/NPu5YR0Q==}
+    dependencies:
+      magic-string: 0.25.2
+      ospec: 3.1.0
+    dev: true
+
   /rollup@3.25.0:
     resolution: {integrity: sha512-FnJkNRst2jEZGw7f+v4hFo6UTzpDKrAKcHZWcEfm5/GJQ5CK7wgb4moNLNAe7npKUev7yQn1AY/YbZRIxOv6Qg==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
@@ -1904,6 +1928,11 @@ packages:
   /source-map-js@1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}
     engines: {node: '>=0.10.0'}
+
+  /sourcemap-codec@1.4.8:
+    resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==}
+    deprecated: Please use @jridgewell/sourcemap-codec instead
+    dev: true
 
   /strip-ansi@6.0.1:
     resolution: {integrity: sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==}

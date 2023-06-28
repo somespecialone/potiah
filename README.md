@@ -19,6 +19,12 @@ developer and make easier to integrate it in `Vue` app.
 
 ---
 
+⚠️ Project is `unstable` and depends
+on [Locomotive Scroll v5 beta](https://github.com/locomotivemtl/locomotive-scroll/tree/v5-beta). So there maybe some
+breaking changes in future unless stable (first major) version/release. Kind regards!
+
+---
+
 ## Installation
 
 ### Bundler / package manager
@@ -79,11 +85,12 @@ app.mount('#app')
 ```vue
 <template>
   <ScrollView root :duration="1.7">
+    <!-- your components/content-->
   </ScrollView>
 </template>
 ```
 
-### Place your content
+### Place scroll components
 
 ```vue
 <template>
@@ -102,22 +109,23 @@ app.mount('#app')
 <script lang="ts">
 import { useScroll } from 'vuecomotive-scroll'
 
-const { scroll } = useScroll()
+const { scrollTo } = useScroll()
 
 // example
 function handleClickOnSomeElement({target}) {
-  scroll.scrollTo(target)
+  scrollTo(target)
 }
 </script>
 ```
 
-`ScrollView` accept [lenis](https://github.com/studio-freight/lenis) instance options props.
+## Core
 
-`ScrollComponent` - component which gather `data-*` attributes
-from [Locomotive Scroll v5](https://github.com/somespecialone/vuecomotive-scroll) element.
-
-`scroll` - instance of [VuecomotiveScroll](https://github.com/somespecialone/vuecomotive-scroll/blob/master/lib/src/scroll.ts) class.
-It is extended [Locomotive Scroll](https://github.com/locomotivemtl/locomotive-scroll) with some addition. 
+* `scroll` - 🚂.
+* `<ScrollView />` - wrapper for scrollable scene. It can be whole document or some container
+  element inside DOM.
+* `<ScrollComponent />` - `scroll element` within scroll scene. It gathers all `data-*`
+  attributes from [Locomotive Scroll element](https://scroll.locomotive.ca/docs/#/attributes).
+* `useScroll` - composable that returns `scroll`, `scrollTo` function, refs with scroll data.
 
 > For all details please visit [Documentation 📖](https://vuecomotive.somespecial.one)
 

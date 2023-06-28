@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount, watch, ref, inject } from 'vue'
+import { onMounted, onBeforeUnmount, watch, inject } from 'vue'
 
 import type Lenis from '@studio-freight/lenis'
 
@@ -28,9 +28,6 @@ const props = withDefaults(defineProps<IViewProps & TLenisOptions>(), {
 
 const emit = defineEmits<{ (e: 'lenis-scroll', lenis: Lenis): void }>()
 
-const wrapper = ref<HTMLElement | Window>(window)
-const content = ref<HTMLElement>(document.documentElement)
-
 const scroll = inject(scrollInstKey)!
 
 // eslint-disable-next-line vue/no-setup-props-destructure
@@ -55,13 +52,7 @@ watch(
 onMounted(() => {
   scroll.isReady.value && scroll.destroy() // clear previous mounted data
 
-  // @ts-expect-error
-  assignWithOmit(scroll.lenisOptions, props, ['wrapperIs', 'contentIs'])
-
-  // @ts-expect-error
-  scroll.lenisOptions.wrapper = wrapper.value
-  // @ts-expect-error
-  scroll.lenisOptions.content = content.value
+  assignWithOmit(scroll.lenisOptionsGetter, props, ['wrapperIs', 'contentIs'])
 
   scroll.init(({ lenis }) => {
     const rootEl = lenis.rootElement as HTMLElement
@@ -75,19 +66,16 @@ onMounted(() => {
 watch(props, (n) => {
   const newProps = assignWithOmit({}, n, ['wrapperIs', 'contentIs'])
   scroll.isReady.value && Object.assign(scroll.lenis!.options, newProps)
-  // @ts-expect-error
-  Object.assign(scroll.lenisOptions, newProps)
+  Object.assign(scroll.lenisOptionsGetter, newProps)
 })
 
 onBeforeUnmount(() => scroll.destroy())
-
-defineExpose({ scroll, wrapper, content })
 </script>
 
 <template>
   <slot v-if="root" />
-  <component v-else :is="wrapperIs as string" ref="wrapper" class="vuecomotive-scroll-wrapper">
-    <component :is="contentIs as string" ref="content" class="vuecomotive-scroll-content">
+  <component v-else :is="wrapperIs as string" :ref="(el) => (scroll.lenisOptionsGetter.wrapper = el)">
+    <component :is="contentIs as string" :ref="(el) => (scroll.lenisOptionsGetter.content = el)">
       <slot />
     </component>
   </component>

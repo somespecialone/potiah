@@ -5,7 +5,7 @@ import type Lenis from '@studio-freight/lenis'
 import LocomotiveScroll from 'locomotive-scroll'
 import type ScrollElement from 'locomotive-scroll/dist/types/core/ScrollElement'
 import type Core from 'locomotive-scroll/dist/types/core/Core'
-import type { lenisTargetScrollTo, ILenisScrollToOptions } from 'locomotive-scroll/dist/types/types'
+import type { lenisTargetScrollTo, ILenisScrollToOptions, ILenisOptions } from 'locomotive-scroll/dist/types/types'
 
 import { scrollInstKey, scrollToKey } from './keys'
 import ScrollView from './components/ScrollView.vue'
@@ -18,7 +18,19 @@ export default class VuecomotiveScroll extends LocomotiveScroll {
   public direction: Ref<number>
   public isScrolling: Ref<boolean>
 
+  /**
+   * @internal
+   */
   _idGenerator: Generator<number>
+
+  /**
+   * Ugly lenis options getter
+   * @internal
+   */
+  get lenisOptionsGetter(): ILenisOptions {
+    // @ts-expect-error
+    return this.lenisOptions
+  }
 
   /**
    * @internal
