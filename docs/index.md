@@ -1,6 +1,6 @@
 ---
-# https://vitepress.dev/reference/default-theme-home-page
 layout: home
+scroll: true
 
 titleTemplate: Vue.js wrapper for Locomotive Scroll
 
@@ -18,9 +18,9 @@ hero:
 
 features:
   - icon: 🛤️
-    title: Locomotive Scroll
+    title: Locomotive Scroll v5-beta
     details: Detection of elements in viewport & smooth scrolling with parallax.
-    link: https://github.com/locomotivemtl/locomotive-scroll
+    link: https://github.com/locomotivemtl/locomotive-scroll/tree/v5-beta
     linkText: Know more
   - icon: 🧩
     title: Components & Composition

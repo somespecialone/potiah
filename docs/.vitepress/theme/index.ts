@@ -9,11 +9,15 @@ import createVuecomotiveScroll from 'vuecomotive-scroll'
 
 // @ts-ignore
 import IndexLayout from './components/ScrollLayout.vue'
+// @ts-ignore
+import DocButton from './components/DocButton.vue'
 
 export default <Theme>{
-  ...DefaultTheme,
+  extends: DefaultTheme,
   Layout: IndexLayout,
-  enhanceApp({ app, router, siteData }) {
+  enhanceApp({ app }) {
+    app.component('DocButton', DocButton)
+
     app.use(createVuecomotiveScroll())
   }
 }
