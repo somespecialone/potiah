@@ -46,7 +46,7 @@ yarn add vuecomotive-scroll
 Specified version
 
 ```html
-<script src="https://unpkg.com/vuecomotive-scroll@0.1.0"></script>
+<script src="https://unpkg.com/vuecomotive-scroll@0.2.0"></script>
 ```
 
 Latest

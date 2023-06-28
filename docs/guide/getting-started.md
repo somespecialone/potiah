@@ -59,7 +59,7 @@ yarn add vuecomotive-scroll
 :::code-group
 
 ```html [specified version]
-<script src="https://unpkg.com/vuecomotive-scroll@0.1.0"></script>
+<script src="https://unpkg.com/vuecomotive-scroll@0.2.0"></script>
 ```
 
 ```html [latest]
