@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "sass": "^1.63.4",
-    "vitepress": "1.0.0-beta.2",
+    "vitepress": "1.0.0-rc.4",
     "vuecomotive-scroll": "workspace:*"
   },
   "peerDependencies": {
