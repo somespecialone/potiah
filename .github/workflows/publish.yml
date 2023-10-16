@@ -1,0 +1,30 @@
+name: Publish
+
+on:
+  release:
+    types: [ published ]
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: lib
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: pnpm
+      - run: pnpm install
+
+      - name: Build lib
+        run: pnpm lib:build
+
+      - name: Publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+        run: pnpm publish --access public --no-git-checks
+
+    timeout-minutes: 10
