@@ -1,5 +1,5 @@
 /**
- * ChatGRP :)
+ * ChatGPT :)
  */
 export function assignWithOmit<T extends {}, S extends Record<string, any>, K extends keyof S>(
   target: T,

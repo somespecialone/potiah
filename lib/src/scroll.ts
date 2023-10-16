@@ -85,7 +85,7 @@ export default class VuecomotiveScroll extends LocomotiveScroll {
   /**
    * @internal
    */
-  init(doneCallback = (data: { core: Core; lenis: Lenis }) => {}) {
+  init(doneCallback = (data: { core: Core; lenis: Lenis }) => {}): Promise<void> {
     const self = this
     // max performance
     let direction = 1
@@ -100,23 +100,26 @@ export default class VuecomotiveScroll extends LocomotiveScroll {
     super._init()
 
     // waiting for Core, Lenis instances in `_init` will be created
-    requestAnimationFrame(() => {
-      // patch Lenis property
-      // https://github.com/studio-freight/lenis/blob/0370ab155771e2e6771f2039c7d15514662af975/src/index.js#L455
-      const descr = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(this.lenis!), 'isScrolling')!
-      Object.defineProperty(this.lenis!, 'isScrolling', {
-        get() {
-          return descr.get!.call(this)
-        },
-        set(value: boolean) {
-          descr.set!.call(this, value)
-          isScrolling != value && (self.isScrolling.value = isScrolling = value)
-        }
+    return new Promise((resolve) => {
+      requestAnimationFrame(() => {
+        // patch Lenis property
+        // https://github.com/studio-freight/lenis/blob/0370ab155771e2e6771f2039c7d15514662af975/src/index.js#L455
+        const descr = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(this.lenis!), 'isScrolling')!
+        Object.defineProperty(this.lenis!, 'isScrolling', {
+          get() {
+            return descr.get!.call(this)
+          },
+          set(value: boolean) {
+            descr.set!.call(this, value)
+            isScrolling != value && (self.isScrolling.value = isScrolling = value)
+          }
+        })
+
+        this.isReady.value = true
+
+        doneCallback({ core: this.core!, lenis: this.lenis! })
+        resolve()
       })
-
-      this.isReady.value = true
-
-      doneCallback({ core: this.core!, lenis: this.lenis! })
     })
   }
 

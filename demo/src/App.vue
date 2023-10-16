@@ -22,6 +22,7 @@ onMounted(() => {
 })
 
 function handleMounted() {}
+function handleInsersect(d) {}
 </script>
 
 <template>
@@ -42,6 +43,12 @@ function handleMounted() {}
     <div id="second" class="second" data-scroll data-scroll-speed="0.2" :data-flag="flag">Child el!!!</div>
     <div class="third" @click="$scrollTo(zero.el)">Main third div</div>
     <div id="blank" class="blank" ref="blank" @click="scrollTo(zero.el)"></div>
+    <ScrollComponent
+      in-view-class="test-in-view-class"
+      repeat
+      :style="{ height: '25vh', background: 'blue' }"
+      @intersect="handleInsersect"
+    />
   </ScrollView>
 </template>
 

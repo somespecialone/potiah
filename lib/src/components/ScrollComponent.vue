@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, shallowRef, inject, watch, watchEffect, onUnmounted, computed } from 'vue'
+import { onMounted, ref, shallowRef, inject, watch, watchEffect, computed, onBeforeUnmount } from 'vue'
 
 import type ScrollElement from 'locomotive-scroll/dist/types/core/ScrollElement'
 
@@ -7,16 +7,17 @@ import type { IScrollElementProps, IIntersectEventPayload, IProgressEventPayload
 
 import { scrollInstKey } from '../keys'
 import { boolToDataAttr } from '../utils'
-
-const INTERSECT_EVENT_SUFFIX = 'vs-iE-'
-const PROGRESS_EVENT_SUFFIX = 'vs-pE-'
+import { INTERSECT_EVENT_SUFFIX, PROGRESS_EVENT_SUFFIX } from '../constants'
 
 export interface IComponentProps {
   is?: keyof HTMLElementTagNameMap | string
 }
 
 // @ts-ignore
-const props = withDefaults(defineProps<IComponentProps & IScrollElementProps>(), { is: 'div' })
+const props = withDefaults(defineProps<IComponentProps & IScrollElementProps>(), {
+  is: 'div',
+  inViewClass: 'is-inview'
+})
 const dataRepeat = computed(() => boolToDataAttr(props.repeat))
 const dataCssProgress = computed(() => boolToDataAttr(props.cssProgress))
 const dataIgnoreFold = computed(() => boolToDataAttr(props.ignoreFold))
@@ -38,11 +39,13 @@ const scrollElement = shallowRef<ScrollElement>()
 const inView = ref(false)
 
 watchEffect(() => {
-  scroll.isReady.value && (scrollElement.value = scroll.scrollElements.find((v) => v.$el === el.value))
+  if (scroll.isReady.value) {
+    scrollElement.value = scroll.scrollElements.find((v) => v.$el === el.value)
+  }
 })
 
 function handleScrollEvent({ detail }: CustomEvent<IIntersectEventPayload>) {
-  inView.value = detail.way == 'enter'
+  inView.value = detail.way === 'enter'
   emit('intersect', detail)
 }
 
@@ -59,7 +62,6 @@ watch(
   () => [
     props.position,
     props.offset,
-    // props.inViewClass,
     // props.repeat,
     // props.speed,
     props.cssProgress,
@@ -69,7 +71,6 @@ watch(
   ([
     pos,
     offset,
-    // cl,
     // scrollRepeat,
     // scrollSpeed,
     scrollCssProgress,
@@ -81,7 +82,6 @@ watch(
       Object.assign(scrollElement.value.attributes, {
         scrollPosition: pos ?? 'start,end',
         scrollOffset: offset ?? '0,0',
-        // scrollClass: cl ?? 'is-inview',
         // scrollRepeat,
         // scrollSpeed,
         scrollCssProgress,
@@ -92,7 +92,7 @@ watch(
   }
 )
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
   window.removeEventListener(intersectEventName, handleScrollEvent)
   window.removeEventListener(progressEventName, handleProgressEvent)
 })
@@ -103,6 +103,7 @@ defineExpose({ el, scrollElement, inView })
 <template>
   <component
     class="scroll-component"
+    :class="{ [inViewClass]: inView }"
     :is="is as string"
     ref="el"
     data-scroll
@@ -114,7 +115,6 @@ defineExpose({ el, scrollElement, inView })
     :data-scroll-ignore-fold="dataIgnoreFold"
     :data-enable-touch-speed="dataTouchSpeed"
     :data-scroll-offset="offset"
-    :data-scroll-class="inViewClass"
     :data-scroll-speed="speed"
   >
     <slot :inView="inView" />

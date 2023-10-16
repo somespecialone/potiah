@@ -6,9 +6,7 @@ import type Lenis from '@studio-freight/lenis'
 import { assignWithOmit } from '../utils'
 import { TLenisOptions } from '../types'
 import { scrollInstKey } from '../keys'
-
-const WRAPPER_PROGRESS_VAR = '--wrapper-progress'
-const SCROLL_DIRECTION_VAR = '--scroll-direction'
+import { SCROLL_DIRECTION_VAR, WRAPPER_PROGRESS_VAR } from '../constants'
 
 export interface IViewProps {
   root?: boolean
@@ -20,7 +18,7 @@ export interface IViewProps {
 
 // @ts-ignore
 const props = withDefaults(defineProps<IViewProps & TLenisOptions>(), {
-  wrapperIs: 'main',
+  wrapperIs: 'div',
   contentIs: 'div',
   smoothWheel: true,
   normalizeWheel: true
@@ -30,18 +28,13 @@ const emit = defineEmits<{ (e: 'lenis-scroll', lenis: Lenis): void }>()
 
 const scroll = inject(scrollInstKey)!
 
+// reading from raw variable faster than from proxy object
 // eslint-disable-next-line vue/no-setup-props-destructure
 let cssProgressRaw = props.cssProgress
 watch(
   () => props.cssProgress,
   (p) => (cssProgressRaw = p)
 )
-
-function scrollCallback(v: Lenis) {
-  // @ts-expect-error
-  cssProgressRaw && scroll.lenis!.rootElement.style.setProperty(WRAPPER_PROGRESS_VAR, v.progress.toString())
-  emit('lenis-scroll', v)
-}
 
 watch(
   scroll.direction,
@@ -59,7 +52,10 @@ onMounted(() => {
     props.cssProgress && rootEl.style.setProperty(WRAPPER_PROGRESS_VAR, '0')
     props.cssDirection && rootEl.style.setProperty(SCROLL_DIRECTION_VAR, '1')
 
-    lenis.on('scroll', scrollCallback)
+    lenis.on('scroll', () => {
+      cssProgressRaw && rootEl.style.setProperty(WRAPPER_PROGRESS_VAR, lenis.progress.toString())
+      emit('lenis-scroll', lenis)
+    })
   })
 })
 

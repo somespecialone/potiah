@@ -3,9 +3,10 @@ import type { TCreateFuncOptions } from './types'
 export * from './global'
 
 import VuecomotiveScroll from './scroll'
-import useScroll from './hook'
+import useScroll from './composable'
 
-export { assignWithOmit, boolToDataAttr } from './utils'
+export * from './utils'
+export * from './constants'
 
 import ScrollView from './components/ScrollView.vue'
 import ScrollComponent from './components/ScrollComponent.vue'
@@ -15,6 +16,7 @@ export default function createVuecomotiveScroll(options?: TCreateFuncOptions): V
 }
 
 export { VuecomotiveScroll, useScroll, ScrollView, ScrollComponent }
+
 export type {
   IVuecomotiveScroll,
   IIntersectEventPayload,
