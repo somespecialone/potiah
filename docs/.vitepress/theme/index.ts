@@ -8,13 +8,13 @@ import 'vuecomotive-scroll/dist/lenis.css'
 import createVuecomotiveScroll from 'vuecomotive-scroll'
 
 // @ts-ignore
-import IndexLayout from './components/ScrollLayout.vue'
+import Layout from './components/ScrollLayout.vue'
 // @ts-ignore
 import DocButton from './components/DocButton.vue'
 
 export default <Theme>{
   extends: DefaultTheme,
-  Layout: IndexLayout,
+  Layout,
   enhanceApp({ app }) {
     app.component('DocButton', DocButton)
 

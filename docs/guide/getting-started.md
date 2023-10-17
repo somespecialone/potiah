@@ -2,6 +2,10 @@
 scroll: true
 ---
 
+<script setup>
+import pkg from "../../lib/package.json";
+</script>
+
 # Getting started
 
 ## What is Vuecomotive Scroll?
@@ -9,26 +13,25 @@ scroll: true
 Vuecomotive Scroll is a thin [Vue.js](https://vuejs.org) wrapper for
 precious [Locomotive Scroll v5](https://github.com/locomotivemtl/locomotive-scroll) 🚂.
 
-It utilizes native `Vue` features like components and composables to give max control of `Locomotive Scroll` API to
-developer and make easier to integrate it in `Vue` app.
+It utilizes native `Vue` features such as components and composables to give maximum control over `LocomotiveScroll` API
+to developer and make it easier to integrate it into a `Vue` app.
 
-Core of library is simple:
+Core of the library:
 
 * [scroll](../core/scroll) - 🚂.
-* [\<ScrollView />](../core/scroll-view) - wrapper for scrollable scene. It can be whole document or some container
-  element inside DOM.
+* [\<ScrollView />](../core/scroll-view) - wrapper for scrollable scene. It can be whole document or any container
+  element inside the DOM.
 * [\<ScrollComponent />](../core/scroll-component) - `scroll element` within scroll scene. It gathers all `data-*`
   attributes from [Locomotive Scroll element](https://scroll.locomotive.ca/docs/#/attributes).
-* [useScroll](../core/use-scroll) - hook that returns `scroll`, `scrollTo` function, refs with scroll data.
+* [useScroll](../core/use-scroll) - composable that returns `scroll`, `scrollTo` function, refs with scroll data.
 
 ## Before starting <Badge type="warning" text="UNSTABLE" />
 
-Project is `unstable` and depends
-on [Locomotive Scroll v5 beta](https://github.com/locomotivemtl/locomotive-scroll/tree/v5-beta). So there maybe some
-breaking
-changes in future unless stable (first major) version/release. 
+The project is unstable and depends
+on [Locomotive Scroll v5 beta](https://github.com/locomotivemtl/locomotive-scroll/tree/v5-beta).
+So there might be some breaking changes in the future unless stable (first major) version is released.
 
-Kind regards!
+Best regards!
 
 ## Installation
 
@@ -58,11 +61,12 @@ yarn add vuecomotive-scroll
 
 :::code-group
 
-```html [specified version]
-<script src="https://unpkg.com/vuecomotive-scroll@0.2.0"></script>
+```html-vue [specified version]
+<script src="https://unpkg.com/vuecomotive-scroll@{{ pkg.version }}"></script>
 ```
 
 ```html [latest]
+
 <script src="https://unpkg.com/vuecomotive-scroll"></script>
 ```
 
@@ -71,6 +75,7 @@ yarn add vuecomotive-scroll
 Also note, that you need to load [lenis styles](https://github.com/studio-freight/lenis#considerations) from CDN too
 
 ```html
+
 <link rel="stylesheet" href="https://unpkg.com/vuecomotive-scroll/dist/lenis.css">
 ```
 

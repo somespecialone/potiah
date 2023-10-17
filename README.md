@@ -9,21 +9,22 @@
 [![license](https://img.shields.io/github/license/somespecialone/vuecomotive-scroll)](https://github.com/somespecialone/vuecomotive-scroll/blob/master/LICENSE)
 [![npm](https://img.shields.io/npm/v/vuecomotive-scroll)](https://www.npmjs.com/package/vuecomotive-scroll)
 [![Docs](https://github.com/somespecialone/vuecomotive-scroll/actions/workflows/docs.yml/badge.svg)](https://github.com/somespecialone/vuecomotive-scroll/actions/workflows/docs.yml)
+[![Publish](https://github.com/somespecialone/vuecomotive-scroll/actions/workflows/publish.yml/badge.svg)](https://github.com/somespecialone/vuecomotive-scroll/actions/workflows/publish.yml)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat)](https://github.com/prettier/prettier)
 
 Vuecomotive Scroll is a thin [Vue.js](https://vuejs.org) wrapper for
 precious [Locomotive Scroll v5](https://github.com/locomotivemtl/locomotive-scroll) 🚂.
 
-It utilizes native `Vue` features like components and composables to give max control of `Locomotive Scroll` API to
-developer and make easier to integrate it in `Vue` app.
+It utilizes native `Vue` features such as components and composables to give maximum control over `LocomotiveScroll` API
+to developer and make it easier to integrate it into a `Vue` app.
 
 [Documentation 📖](https://vuecomotive.somespecial.one)
 
 ---
 
-⚠️ Project is `unstable` and depends
-on [Locomotive Scroll v5 beta](https://github.com/locomotivemtl/locomotive-scroll/tree/v5-beta). So there maybe some
-breaking changes in future unless stable (first major) version/release. Kind regards!
+⚠️ The project is unstable and depends
+on [Locomotive Scroll v5 beta](https://github.com/locomotivemtl/locomotive-scroll/tree/v5-beta).
+So there might be some breaking changes in the future unless stable (first major) version is released. Best regards!
 
 ---
 
@@ -48,7 +49,7 @@ yarn add vuecomotive-scroll
 Specified version
 
 ```html
-<script src="https://unpkg.com/vuecomotive-scroll@0.2.0"></script>
+<script src="https://unpkg.com/vuecomotive-scroll@0.2.1"></script>
 ```
 
 Latest
@@ -123,8 +124,7 @@ function handleClickOnSomeElement({target}) {
 ## Core
 
 * `scroll` - 🚂.
-* `<ScrollView />` - wrapper for scrollable scene. It can be whole document or some container
-  element inside DOM.
+* `<ScrollView />` - wrapper for scrollable scene. It can be whole document or any container element inside the DOM.
 * `<ScrollComponent />` - `scroll element` within scroll scene. It gathers all `data-*`
   attributes from [Locomotive Scroll element](https://scroll.locomotive.ca/docs/#/attributes).
 * `useScroll` - composable that returns `scroll`, `scrollTo` function, refs with scroll data.

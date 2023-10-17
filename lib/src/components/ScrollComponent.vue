@@ -13,6 +13,8 @@ export interface IComponentProps {
   is?: keyof HTMLElementTagNameMap | string
 }
 
+// TODO Do I need to handle css progress by myself?
+// TODO Boolean prop to enable/disable progress event emitting is more sufficient than emitting progress event by default in each component
 // @ts-ignore
 const props = withDefaults(defineProps<IComponentProps & IScrollElementProps>(), {
   is: 'div',

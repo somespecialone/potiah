@@ -9,7 +9,7 @@ import HomeLogo from './HomeLogo.vue'
 import MouseIco from './MouseIco.vue'
 import ArrowIco from './ArrowIco.vue'
 
-const PROGRESS_THRESHOLD = 0.95
+import { DEF_DUR, PROGRESS_THRESHOLD } from '../../constants'
 
 const { Layout } = DefaultTheme
 
@@ -20,7 +20,7 @@ const data = useData()
 
 const frontScroll = computed<boolean>(() => data.frontmatter.value.scroll)
 const home = computed(() => route.path == '/')
-const duration = ref(1.2)
+const duration = ref(DEF_DUR)
 const durationComp = computed(() => (home.value ? 2 : duration.value))
 const active = ref(false)
 const visited = ref(false)
@@ -28,7 +28,7 @@ watch(route, () => {
   visited.value = true
   active.value = true
   immediate = true
-  duration.value = 1.2
+  duration.value = DEF_DUR
 })
 
 // mock `window.scrollTo` function with ours `scrollTo` to handle scroll from router by ourselves
@@ -65,7 +65,7 @@ provide('duration', duration)
 </script>
 
 <template>
-  <ScrollView v-if="frontScroll" :duration="durationComp" root>
+  <ScrollView v-if="frontScroll" :duration="durationComp" root smooth-touch>
     <ClientOnly v-if="home">
       <Layout :class="{ active, home }">
         <template #layout-top>
@@ -124,8 +124,9 @@ provide('duration', duration)
     left: 50%;
 
     color: var(--vp-c-text-2);
-    font-size: 10px;
+    font-size: clamp(5px, 0.6rem, 1rem);
     font-weight: 500;
+    white-space: nowrap;
 
     transform: translate(-50%, 100%);
     transition: transform 0.5s ease-out;
