@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: 18
           cache: pnpm
-          registry-url: '//registry.npmjs.org/'
+          registry-url: 'https://registry.npmjs.org/'
       - run: pnpm install
 
       - name: Build lib
