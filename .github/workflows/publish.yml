@@ -7,9 +7,7 @@ on:
 jobs:
   main:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: lib
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v2
@@ -17,14 +15,13 @@ jobs:
         with:
           node-version: 18
           cache: pnpm
+          registry-url: '//registry.npmjs.org/'
       - run: pnpm install
 
       - name: Build lib
-        run: pnpm lib:build
+        run: pnpm --filter "vuecomotive-scroll" lib:build
 
       - name: Publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-        run: pnpm publish --access public --no-git-checks
-
-    timeout-minutes: 10
+        run: pnpm publish lib --no-git-checks
