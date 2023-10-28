@@ -5,9 +5,11 @@ on:
     types: [ published ]
 
 jobs:
-  main:
+  build:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    outputs:
+      dist-file: ${{ steps.pack.outputs.dist-file }}
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v2
@@ -15,13 +17,39 @@ jobs:
         with:
           node-version: 18
           cache: pnpm
-          registry-url: 'https://registry.npmjs.org/'
       - run: pnpm install
 
       - name: Build lib
         run: pnpm --filter "vuecomotive-scroll" lib:build
 
-      - name: Publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-        run: pnpm publish lib --no-git-checks
+      - name: Pack distribution package
+        id: pack
+        working-directory: lib
+        run: |
+          pnpm pack
+          echo "dist-file=$(find -name '*.tgz')" >> $GITHUB_OUTPUT
+          cp *.tgz ..
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: package-dist
+          path: ${{ steps.pack.outputs.dist-file }}
+          retention-days: 1
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: npm
+      url: https://www.npmjs.com/package/vuecomotive-scroll
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: package-dist
+
+      - name: Publish package distributions to NPM
+        uses: JS-DevTools/npm-publish@v3
+        with:
+          token: ${{ secrets.NODE_AUTH_TOKEN }}
+          package: ${{ needs.build.outputs.dist-file }}
