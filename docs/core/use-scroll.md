@@ -7,7 +7,6 @@ scroll: true
 For use inside `setup` of components only.
 
  ```vue
-
 <script setup lang="ts">
 import { useScroll } from "vuecomotive-scroll"
 

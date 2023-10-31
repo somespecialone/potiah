@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// TODO make some more feature presentable and clean this
+
 import { onMounted, ref, watch } from 'vue'
 
 import { useScroll, ScrollView, ScrollComponent } from 'vuecomotive-scroll'
@@ -52,7 +54,7 @@ function handleInsersect(d) {}
   </ScrollView>
 </template>
 
-<style lang="scss">
+<style>
 body {
   padding: 0;
   box-sizing: border-box;
@@ -80,10 +82,10 @@ header {
 .zero1 {
   height: 25vh;
   background-color: lightpink;
+}
 
-  &.flag {
-    display: none;
-  }
+.zero1.flag {
+  display: none;
 }
 
 .first {
@@ -94,10 +96,10 @@ header {
 .second {
   height: 15vh;
   background-color: cadetblue;
+}
 
-  &[data-flag='true'] {
-    background-color: red;
-  }
+.second[data-flag='true'] {
+  background-color: red;
 }
 
 .third {

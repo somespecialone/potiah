@@ -2,16 +2,17 @@
   "name": "@vuecomotive-scroll/demo",
   "private": true,
   "scripts": {
-    "demo:dev": "vite",
-    "demo:build": "run-p type-check build-only",
-    "demo:preview": "vite preview",
-    "demo:build-only": "vite build",
-    "demo:type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "vuecomotive-scroll": "workspace:*"
+    "vue": "^3.3.4",
+    "vuecomotive-scroll": "latest"
   },
   "devDependencies": {
-    "sass": "^1.63.4"
+    "@types/node": "^18.16.17",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "vite": "^4.3.9"
   }
 }

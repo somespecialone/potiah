@@ -29,7 +29,6 @@ Emit `lenis-scroll` event. Single argument passed to handler
 is [Lenis](https://github.com/studio-freight/lenis/blob/main/dist/types/index.d.ts).
 
 ```vue {2,4-6,10}
-
 <script setup lang="ts">
 import type Lenis from '@studio-freight/lenis';
 
@@ -50,7 +49,6 @@ function onLenisScroll(lenis: Lenis) {
 If you need ref to wrapper or/and content elements you can find it on `Lenis` instance after scroll is ready.
 
 ```vue {10-14}
-
 <script setup lang="ts">
 import { watch } from "vue";
 

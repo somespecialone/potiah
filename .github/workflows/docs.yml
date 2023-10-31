@@ -25,10 +25,10 @@ jobs:
       - run: pnpm install
 
       - name: Build lib
-        run: pnpm --filter "vuecomotive-scroll" lib:build
+        run: pnpm lib:build
 
-      - name: Build docs & upload
-        run: pnpm --filter "@vuecomotive-scroll/docs" docs:build
+      - name: Build docs
+        run: pnpm docs:build
 
       - uses: actions/upload-pages-artifact@v2
         with:

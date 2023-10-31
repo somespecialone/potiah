@@ -66,7 +66,6 @@ yarn add vuecomotive-scroll
 ```
 
 ```html [latest]
-
 <script src="https://unpkg.com/vuecomotive-scroll"></script>
 ```
 
@@ -75,7 +74,6 @@ yarn add vuecomotive-scroll
 Also note, that you need to load [lenis styles](https://github.com/studio-freight/lenis#considerations) from CDN too
 
 ```html
-
 <link rel="stylesheet" href="https://unpkg.com/vuecomotive-scroll/dist/lenis.css">
 ```
 

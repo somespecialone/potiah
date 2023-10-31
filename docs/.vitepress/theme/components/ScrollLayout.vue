@@ -142,7 +142,7 @@ provide('duration', duration)
       background-color: transparent !important;
     }
 
-    .VPNavBar.fill {
+    .VPNavBar {
       background-color: transparent;
       border-bottom: none;
     }
@@ -160,8 +160,8 @@ provide('duration', duration)
         .name .clip {
           background: linear-gradient(
             120deg,
-            var(--vp-c-brand) calc(((1 - var(--wrapper-progress)) * -200%) + 20%),
-            var(--vp-c-green-light)
+            var(--vp-c-brand-1) calc(((1 - var(--wrapper-progress)) * -200%) + 20%),
+            var(--vp-c-green-1)
           );
           background-clip: text;
           -webkit-background-clip: text;

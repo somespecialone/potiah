@@ -1,17 +1,15 @@
 {
   "name": "@vuecomotive-scroll/docs",
   "private": true,
+  "type": "module",
   "scripts": {
-    "docs:dev": "vitepress dev",
-    "docs:build": "vitepress build",
-    "docs:preview": "vitepress preview"
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview"
   },
   "devDependencies": {
     "sass": "^1.63.4",
-    "vitepress": "1.0.0-beta.2",
-    "vuecomotive-scroll": "workspace:*"
-  },
-  "peerDependencies": {
-    "vue": "^3.3.0"
+    "vitepress": "1.0.0-rc.24",
+    "vuecomotive-scroll": "workspace:^"
   }
 }

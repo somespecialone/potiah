@@ -37,7 +37,6 @@ typing, you can import them.
 :::
 
 ```vue {2,6-8}
-
 <script setup lang="ts">
 import { ScrollView } from 'vuecomotive-scroll' // optional for typings
 </script>
@@ -71,7 +70,6 @@ latter will work and previous not.
 some [lenis instance options](https://github.com/studio-freight/lenis#instance-settings).
 
 ```vue {4,9-11}
-
 <script setup lang="ts">
 import { ref } from 'vue'
 
@@ -117,7 +115,6 @@ Not all props are reactive (react to updates)! You can see details on [component
 :::
 
 ```vue {3-8}
-
 <template>
   <ScrollView root>
     <ScrollComponent is="section" class="first-scroll-component" :speed="0.2">
@@ -130,8 +127,6 @@ Not all props are reactive (react to updates)! You can see details on [component
   </ScrollView>
 </template>
 ```
-
-[//]: # (TODO codepen/codesandbox/... example from demo & make demo more feature representable)
 
 > See also [ScrollComponent](../core/scroll-component)
 
@@ -147,7 +142,6 @@ This page uses the `scrollTo` function to scroll to anchors by clicking on links
 :::
 
 ```vue {4,6,8-15,20}
-
 <script setup lang="ts">
 import { computed } from "vue";
 
@@ -189,7 +183,6 @@ as shown below:
 For scrolling to work specify `height` and `overflow` style properties for `ScrollView` wrapper element.
 
 ```vue {15-16}
-
 <template>
   <header>
     <!-- header content -->
@@ -220,7 +213,6 @@ There are two global properties of app available in `template`:
 * `$scroll` - `scroll` instance
 
 ```vue {3,4}
-
 <template>
   <ScrollView root>
     <button @click="$scrollTo('#target-id')">Scroll To</button>
@@ -237,6 +229,11 @@ There are two global properties of app available in `template`:
     justify-content: center;
 }
 </style>
+
+## Try It Online
+
+If you want to see how things works you can try it directly in your browser on
+[StackBlitz](https://stackblitz.com/github/somespecialone/vuecomotive-scroll/tree/master/demo/?file=src%2FApp.vue)
 
 ## Limitations
 

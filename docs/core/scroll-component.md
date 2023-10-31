@@ -32,7 +32,6 @@ and `intersect` event handler will
 take [IIntersectEventPayload](https://github.com/somespecialone/vuecomotive-scroll/blob/master/lib/src/types.ts)
 
 ```vue {2,4-6,8-10,14,15}
-
 <script setup lang="ts">
 import type { IProgressEventPayload, IIntersectEventPayload } from "vuecomotive-scroll";
 
@@ -60,7 +59,6 @@ function handleIntersect({ target, way, from }: IIntersectEventPayload) {
 Pass only `inView` to slot via `v-slot`.
 
 ```vue {6-8,13}
-
 <script setup lang="ts">
 import { onMounted } from "vue"
 

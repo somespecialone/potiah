@@ -20,9 +20,9 @@ jobs:
       - run: pnpm install
 
       - name: Build lib
-        run: pnpm --filter "vuecomotive-scroll" lib:build
+        run: pnpm lib:build
 
-      - name: Pack distribution package
+      - name: Create package distribution
         id: pack
         working-directory: lib
         run: |
@@ -48,7 +48,7 @@ jobs:
         with:
           name: package-dist
 
-      - name: Publish package distributions to NPM
+      - name: Publish package distribution to NPM
         uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ secrets.NODE_AUTH_TOKEN }}

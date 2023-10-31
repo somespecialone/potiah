@@ -48,15 +48,12 @@
   "scripts": {
     "prepack": "node ../scripts/prepack.mjs",
     "postpack": "node ../scripts/postpack.mjs",
-    "lib:build": "vite build && vue-tsc"
+    "build": "vite build && vue-tsc"
   },
   "peerDependencies": {
     "vue": "^3.3.0"
   },
   "dependencies": {
     "locomotive-scroll": "5.0.0-beta.8"
-  },
-  "devDependencies": {
-    "rollup-plugin-modify": "^3.0.0"
   }
 }

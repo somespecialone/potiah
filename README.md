@@ -20,6 +20,8 @@ to developer and make it easier to integrate it into a `Vue` app.
 
 [Documentation 📖](https://vuecomotive.somespecial.one)
 
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/somespecialone/vuecomotive-scroll/tree/master/demo/?file=src%2FApp.vue)
+
 ---
 
 ⚠️ The project is unstable and depends

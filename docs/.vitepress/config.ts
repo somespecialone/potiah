@@ -15,6 +15,10 @@ export default defineConfig({
     nav: [
       { text: 'Guide', link: '/guide/getting-started' },
       { text: 'Core', link: '/core/scroll' },
+      {
+        text: 'Playground',
+        link: 'https://stackblitz.com/github/somespecialone/vuecomotive-scroll/tree/master/demo/?file=src%2FApp.vue'
+      },
       { text: pkg.version, link: 'https://github.com/somespecialone/vuecomotive-scroll/releases/tag/v' + pkg.version },
       { text: 'Support Ukraine', link: 'https://war.ukraine.ua/support-ukraine/' }
     ],
@@ -41,5 +45,6 @@ export default defineConfig({
       pattern: 'https://github.com/somespecialone/vuecomotive-scroll/edit/master/docs/:path',
       text: 'Edit this page on GitHub'
     }
-  }
+  },
+  markdown: { theme: 'material-theme' }
 })

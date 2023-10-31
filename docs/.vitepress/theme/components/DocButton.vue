@@ -17,8 +17,8 @@
   transition: border-color 0.25s, color 0.25s;
 
   &:hover {
-    color: var(--vp-c-brand);
-    border-color: var(--vp-c-text-1);
+    color: var(--vp-c-text-1);
+    border-color: var(--vp-c-brand-1);
   }
 }
 </style>
