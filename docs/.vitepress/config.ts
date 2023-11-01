@@ -46,5 +46,5 @@ export default defineConfig({
       text: 'Edit this page on GitHub'
     }
   },
-  markdown: { theme: 'material-theme' }
+  markdown: { theme: { light: 'material-theme-lighter', dark: 'material-theme-darker' } }
 })
