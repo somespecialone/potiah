@@ -1,6 +1,10 @@
 name: Publish
 
 on:
+  workflow_run:
+    workflows: [ Release ]
+    types: [ completed ]
+
   release:
     types: [ published ]
 
@@ -9,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     outputs:
-      dist-file: ${{ steps.pack.outputs.dist-file }}
+      dist_file: ${{ steps.pack.outputs.tar }}
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v2
@@ -27,13 +31,13 @@ jobs:
         working-directory: lib
         run: |
           pnpm pack
-          echo "dist-file=$(find -name '*.tgz')" >> $GITHUB_OUTPUT
+          echo "tar=$(find -name '*.tgz')" >> $GITHUB_OUTPUT
           cp *.tgz ..
 
       - uses: actions/upload-artifact@v3
         with:
           name: package-dist
-          path: ${{ steps.pack.outputs.dist-file }}
+          path: ${{ steps.pack.outputs.tar }}
           retention-days: 1
 
   publish:
@@ -52,4 +56,4 @@ jobs:
         uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ secrets.NODE_AUTH_TOKEN }}
-          package: ${{ needs.build.outputs.dist-file }}
+          package: ${{ needs.build.outputs.dist_file }}

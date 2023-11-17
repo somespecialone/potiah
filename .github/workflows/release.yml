@@ -6,7 +6,7 @@ on:
       - v*
 
 jobs:
-  build:
+  main:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # it would be nice to be able to generate change logs there
+      # it would be nice to be able to generate changelogs there
 
       - name: Create & publish release
         uses: softprops/action-gh-release@v1
