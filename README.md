@@ -8,6 +8,7 @@
 [![Made in Ukraine](https://img.shields.io/badge/made_in-ukraine-ffd700.svg?labelColor=0057b7)](https://stand-with-ukraine.pp.ua)
 [![license](https://img.shields.io/github/license/somespecialone/vuecomotive-scroll)](https://github.com/somespecialone/vuecomotive-scroll/blob/master/LICENSE)
 [![npm](https://img.shields.io/npm/v/vuecomotive-scroll)](https://www.npmjs.com/package/vuecomotive-scroll)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/vuecomotive-scroll)
 [![Docs](https://github.com/somespecialone/vuecomotive-scroll/actions/workflows/docs.yml/badge.svg)](https://github.com/somespecialone/vuecomotive-scroll/actions/workflows/docs.yml)
 [![Publish](https://github.com/somespecialone/vuecomotive-scroll/actions/workflows/publish.yml/badge.svg)](https://github.com/somespecialone/vuecomotive-scroll/actions/workflows/publish.yml)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat)](https://github.com/prettier/prettier)
@@ -51,7 +52,7 @@ yarn add vuecomotive-scroll
 Specified version
 
 ```html
-<script src="https://unpkg.com/vuecomotive-scroll@0.2.1"></script>
+<script src="https://unpkg.com/vuecomotive-scroll@0.2.2"></script>
 ```
 
 Latest

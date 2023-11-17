@@ -23,7 +23,7 @@ export interface IVuecomotiveScroll {
   scroll: VuecomotiveScroll
 }
 
-export type TLenisOptions = Omit<ILenisOptions, 'wrapper' | 'content'>
+export type TLenisOptions = Omit<ILenisOptions, 'wrapper' | 'content' | 'orientation'>
 
 export type TPosition =
   | 'start'

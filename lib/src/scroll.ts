@@ -124,7 +124,10 @@ export default class VuecomotiveScroll extends LocomotiveScroll {
   }
 
   public destroy() {
-    this.isReady.value = false
     super.destroy()
+    // clear options
+    // @ts-expect-error
+    this.lenisOptions = {}
+    this.isReady.value = false
   }
 }

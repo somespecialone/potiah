@@ -20,6 +20,7 @@ so don't use dynamic rendering or change width/height properties of elements ins
 | cssDirection  | boolean          |    +     | *false*       | Same as `cssProgress` ⬆️, but in `--scroll-direction` property. Possible values are -1 (up), 1 (down).                                                             |
 | wrapperIs     | string/Component |    -     | `div`         | Specifies which component to render. Same as `is` prop on [component](https://vuejs.org/api/built-in-special-elements.html#component).                             |
 | contentIs     | string/Component |    -     | `div`         | ⬆️                                                                                                                                                                 |
+| horizontal    | boolean          |    -     | *false*       | Scroll orientation. Default - `vertical`                                                                                                                           |
 
 Other props are [options from Lenis](https://scroll.locomotive.ca/docs/#/options?id=lenisoptions) and non-reactive.
 

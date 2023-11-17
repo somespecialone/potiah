@@ -14,9 +14,9 @@ export interface IViewProps {
   contentIs?: keyof HTMLElementTagNameMap | string
   cssProgress?: boolean
   cssDirection?: boolean
+  horizontal?: boolean
 }
 
-// @ts-ignore
 const props = withDefaults(defineProps<IViewProps & TLenisOptions>(), {
   wrapperIs: 'div',
   contentIs: 'div',
@@ -42,10 +42,11 @@ watch(
   (d) => props.cssDirection && scroll.lenis!.rootElement.style.setProperty(SCROLL_DIRECTION_VAR, d.toString())
 )
 
-onMounted(() => {
-  scroll.isReady.value && scroll.destroy() // clear previous mounted data
-
-  assignWithOmit(scroll.lenisOptionsGetter, props, ['wrapperIs', 'contentIs'])
+onMounted(async () => {
+  assignWithOmit(scroll.lenisOptionsGetter, props, ['wrapperIs', 'contentIs', 'horizontal'])
+  if (props.horizontal) {
+    scroll.lenisOptionsGetter.orientation = 'horizontal'
+  }
 
   scroll.init(({ lenis }) => {
     const rootEl = lenis.rootElement as HTMLElement
@@ -70,8 +71,8 @@ onBeforeUnmount(() => scroll.destroy())
 
 <template>
   <slot v-if="root" />
-  <component v-else :is="wrapperIs as string" :ref="(el) => (scroll.lenisOptionsGetter.wrapper = el)">
-    <component :is="contentIs as string" :ref="(el) => (scroll.lenisOptionsGetter.content = el)">
+  <component v-else :is="wrapperIs as string" :ref="(el) => el && (scroll.lenisOptionsGetter.wrapper = el)">
+    <component :is="contentIs as string" :ref="(el) => el && (scroll.lenisOptionsGetter.content = el)">
       <slot />
     </component>
   </component>
