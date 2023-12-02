@@ -1,19 +1,15 @@
-import { inject } from 'vue'
+import { inject, computed } from 'vue'
 
-import type { IVuecomotiveScroll } from './types'
-import { scrollInstKey, scrollToKey } from './keys'
+import type { IComposeReturn } from './types'
+import { instKey } from './keys'
 
-export default function useScroll(): IVuecomotiveScroll {
-  const scroll = inject(scrollInstKey)!
-  const scrollTo = inject(scrollToKey)!
-
-  const { isReady, direction, isScrolling } = scroll
+export function usePotiah(): IComposeReturn {
+  const potiah = inject(instKey)!
 
   return {
-    scrollTo,
-    isReady,
-    direction,
-    scroll,
-    isScrolling
+    scrollTo: potiah.scrollTo,
+    direction: computed(() => potiah.direction),
+    isScrolling: computed(() => potiah.isScrolling),
+    potiah
   }
 }

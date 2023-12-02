@@ -1,5 +1,5 @@
 <template>
-  <svg class="vuecomotive-svg" viewBox="0 0 270 240" xmlns="http://www.w3.org/2000/svg">
+  <svg class="potiah-svg" viewBox="0 0 270 240" xmlns="http://www.w3.org/2000/svg">
     <g id="logo-rails">
       <path fill="#A4A9AD" d="m88.2465,190.11827l93.50698,0l0,6.95566l-93.50698,0l0,-6.95566z" />
       <path fill="#A4A9AD" d="m72.32737,209.83792l125.34525,0l0,6.95566l-125.34525,0l0,-6.95566z" />

@@ -3,15 +3,10 @@ import { onMounted, ref, shallowRef, inject, watch, watchEffect, computed, onBef
 
 import type ScrollElement from 'locomotive-scroll/dist/types/core/ScrollElement'
 
-import type { IScrollElementProps, IIntersectEventPayload, IProgressEventPayload } from '../types'
+import type { IScrollElementProps, IIntersectEventPayload, IProgressEventPayload, IComponentProps } from '../types'
 
-import { scrollInstKey } from '../keys'
+import { instKey } from '../keys'
 import { boolToDataAttr } from '../utils'
-import { INTERSECT_EVENT_SUFFIX, PROGRESS_EVENT_SUFFIX } from '../constants'
-
-export interface IComponentProps {
-  is?: keyof HTMLElementTagNameMap | string
-}
 
 // TODO Do I need to handle css progress by myself?
 // TODO Boolean prop to enable/disable progress event emitting is more sufficient than emitting progress event by default in each component
@@ -22,7 +17,7 @@ const props = withDefaults(defineProps<IComponentProps & IScrollElementProps>(),
 const dataRepeat = computed(() => boolToDataAttr(props.repeat))
 const dataCssProgress = computed(() => boolToDataAttr(props.cssProgress))
 const dataIgnoreFold = computed(() => boolToDataAttr(props.ignoreFold))
-const dataTouchSpeed = computed(() => boolToDataAttr(props.touchSpeed))
+const dataTouchSpeed = computed(() => boolToDataAttr(props.enableTouchSpeed))
 
 const el = ref<HTMLElement>()
 
@@ -31,21 +26,21 @@ const emit = defineEmits<{
   (e: 'progress', data: IProgressEventPayload): void
 }>()
 
-const scroll = inject(scrollInstKey)!
-const eventId = scroll.getId()
-const intersectEventName = INTERSECT_EVENT_SUFFIX + eventId
-const progressEventName = PROGRESS_EVENT_SUFFIX + eventId
+const potiah = inject(instKey)!
+const eventId = potiah._generateId()
+const intersectEventName = 'r-iE-' + eventId
+const progressEventName = 'r-pE-' + eventId
 
 const scrollElement = shallowRef<ScrollElement>()
 const inView = ref(false)
 
 watchEffect(() => {
-  if (scroll.isReady.value) {
-    scrollElement.value = scroll.scrollElements.find((v) => v.$el === el.value)
+  if (potiah.scroll?.coreInstance) {
+    scrollElement.value = potiah.scroll.coreInstance.scrollElements.find((v) => v.$el === el.value)
   }
 })
 
-function handleScrollEvent({ detail }: CustomEvent<IIntersectEventPayload>) {
+function handleIntersectEvent({ detail }: CustomEvent<IIntersectEventPayload>) {
   inView.value = detail.way === 'enter'
   emit('intersect', detail)
 }
@@ -55,7 +50,9 @@ function handleProgressEvent({ detail }: CustomEvent<IProgressEventPayload>) {
 }
 
 onMounted(() => {
-  window.addEventListener(intersectEventName, handleScrollEvent)
+  // @ts-ignore
+  window.addEventListener(intersectEventName, handleIntersectEvent)
+  // @ts-ignore
   window.addEventListener(progressEventName, handleProgressEvent)
 })
 
@@ -67,7 +64,7 @@ watch(
     // props.speed,
     props.cssProgress,
     props.ignoreFold,
-    props.touchSpeed
+    props.enableTouchSpeed
   ],
   ([
     pos,
@@ -94,7 +91,9 @@ watch(
 )
 
 onBeforeUnmount(() => {
-  window.removeEventListener(intersectEventName, handleScrollEvent)
+  // @ts-ignore
+  window.removeEventListener(intersectEventName, handleIntersectEvent)
+  // @ts-ignore
   window.removeEventListener(progressEventName, handleProgressEvent)
 })
 
@@ -105,7 +104,7 @@ defineExpose({ el, scrollElement, inView })
   <component
     class="scroll-component"
     :class="{ [inViewClass]: inView }"
-    :is="is as string"
+    :is="is"
     ref="el"
     data-scroll
     :data-scroll-call="intersectEventName"

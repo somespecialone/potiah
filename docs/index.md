@@ -5,8 +5,8 @@ scroll: true
 titleTemplate: Vue.js wrapper for Locomotive Scroll
 
 hero:
-  name: Vuecomotive Scroll
-  text: Vue.js wrapper for Locomotive Scroll
+  name: Potiah
+  text: Vue.js wrapper for Locomotive Scroll 🚂
   tagline: Component-oriented, type safe, easy
   actions:
     - theme: brand
@@ -14,7 +14,7 @@ hero:
       link: /guide/getting-started
     - theme: alt
       text: View on GitHub
-      link: https://github.com/somespecialone/vuecomotive-scroll
+      link: https://github.com/somespecialone/potiah
 
 features:
   - icon: 🛤️

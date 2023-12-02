@@ -1,8 +1,8 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
-import 'vuecomotive-scroll/dist/lenis.css'
-import createVuecomotiveScroll from 'vuecomotive-scroll'
+import 'locomotive-scroll/locomotive-scroll.css'
+import { createPotiah } from 'potiah'
 
 import App from './App.vue'
 import HomeRoute from '@/pages/HomeRoute.vue'
@@ -25,7 +25,7 @@ const router = createRouter({
   ]
 })
 
-app.use(createVuecomotiveScroll())
+app.use(createPotiah())
 app.use(router)
 
 app.mount('#app')

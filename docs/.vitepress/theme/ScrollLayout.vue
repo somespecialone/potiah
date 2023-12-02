@@ -1,24 +1,26 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref, watch, watchEffect, provide } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch, watchEffect, provide, nextTick } from 'vue'
 import { useRoute, useData } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 
-import { ScrollView, ScrollComponent, useScroll } from 'vuecomotive-scroll'
+import type Lenis from '@studio-freight/lenis'
 
-import HomeLogo from './HomeLogo.vue'
-import MouseIco from './MouseIco.vue'
-import ArrowIco from './ArrowIco.vue'
+import { ScrollView, ScrollComponent, usePotiah } from 'potiah'
 
-import { DEF_DUR, PROGRESS_THRESHOLD } from '../../constants'
+import HomeLogo from './components/HomeLogo.vue'
+import MouseIco from './components/MouseIco.vue'
+import ArrowIco from './components/ArrowIco.vue'
+
+import { DEF_DUR, PROGRESS_THRESHOLD } from '../constants'
 
 const { Layout } = DefaultTheme
 
-const { scroll } = useScroll()
+const { potiah } = usePotiah()
 
 const route = useRoute()
-const data = useData()
+const { isDark, frontmatter } = useData()
 
-const frontScroll = computed<boolean>(() => data.frontmatter.value.scroll)
+const frontScroll = computed<boolean>(() => frontmatter.value.scroll)
 const home = computed(() => route.path == '/')
 const duration = ref(DEF_DUR)
 const durationComp = computed(() => (home.value ? 2 : duration.value))
@@ -36,14 +38,16 @@ let windowScrollTo
 let immediate = true // immediate initial scroll
 
 function handleScrollTo(o: ScrollToOptions | number, top?: number) {
-  // bypass `isReady`
-  scroll.lenis.scrollTo(typeof o === 'number' ? top : o.top, { immediate })
+  potiah.scrollTo(typeof o === 'number' ? top : o.top, { immediate })
   immediate = false
 }
 
 watchEffect(() => {
-  !windowScrollTo && (windowScrollTo = window.scrollTo)
-  window.scrollTo = frontScroll.value ? handleScrollTo : windowScrollTo
+  if (!import.meta.env.SSR) {
+    // because it will be called during build somehow
+    !windowScrollTo && (windowScrollTo = window.scrollTo)
+    window.scrollTo = frontScroll.value ? handleScrollTo : windowScrollTo
+  }
 })
 
 function handleScroll({ progress }) {
@@ -62,26 +66,65 @@ onMounted(() => {
 onBeforeUnmount(() => windowScrollTo && (window.scrollTo = windowScrollTo))
 
 provide('duration', duration)
+
+// animate dark <> light mode switch
+// https://github.com/vite-pwa/docs/blob/8917eccda8c13c29cd151ae91a0e398e3394eb91/.vitepress/theme/PwaLayout.vue
+function enableTransitions() {
+  return 'startViewTransition' in document && window.matchMedia('(prefers-reduced-motion: no-preference)').matches
+}
+
+provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
+  if (!enableTransitions()) {
+    isDark.value = !isDark.value
+    return
+  }
+
+  const clipPath = [
+    `circle(0px at ${x}px ${y}px)`,
+    `circle(${Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y))}px at ${x}px ${y}px)`
+  ]
+
+  await document.startViewTransition(async () => {
+    isDark.value = !isDark.value
+    await nextTick()
+  }).ready
+
+  document.documentElement.animate(
+    { clipPath: isDark.value ? clipPath.reverse() : clipPath },
+    {
+      duration: 300,
+      easing: 'ease-in',
+      pseudoElement: `::view-transition-${isDark.value ? 'old' : 'new'}(root)`
+    }
+  )
+})
+
+// TODO this is obviously a bad idea.
+//  Consider global option like router's `onRouteChange` to have access to event in child components
+//  and can change values of DOM in non-reactive manner
+const vel = ref('0')
+provide('velocity', vel)
+function handleLenisScroll({ velocity }: Lenis) {
+  vel.value = velocity.toFixed(2)
+}
 </script>
 
 <template>
-  <ScrollView v-if="frontScroll" :duration="durationComp" root smooth-touch>
-    <ClientOnly v-if="home">
-      <Layout :class="{ active, home }">
-        <template #layout-top>
-          <ScrollComponent v-if="!visited" class="blank" @progress="handleScroll">
-            <div class="scroll-down">
-              <MouseIco />
-              <ArrowIco class="arrow" />
-            </div>
-          </ScrollComponent>
-          <div class="copyright">© 2023 Dmytro Tkachenko. Released under the MIT License.</div>
-        </template>
-        <template #home-hero-image>
-          <HomeLogo class="image-src" />
-        </template>
-      </Layout>
-    </ClientOnly>
+  <ScrollView v-if="frontScroll" :duration="durationComp" root smooth-touch @lenis-scroll="handleLenisScroll">
+    <Layout v-if="home" :class="{ active, home }">
+      <template #layout-top>
+        <ScrollComponent v-if="!visited" class="blank" @progress="handleScroll">
+          <div class="scroll-down">
+            <MouseIco />
+            <ArrowIco class="arrow" />
+          </div>
+        </ScrollComponent>
+        <div class="copyright">© 2023 Dmytro Tkachenko. Released under the MIT License.</div>
+      </template>
+      <template #home-hero-image>
+        <HomeLogo class="image-src" />
+      </template>
+    </Layout>
     <Layout v-else />
   </ScrollView>
   <Layout v-else />
@@ -124,7 +167,7 @@ provide('duration', duration)
     left: 50%;
 
     color: var(--vp-c-text-2);
-    font-size: clamp(5px, 0.6rem, 1rem);
+    font-size: 0.9vw;
     font-weight: 500;
     white-space: nowrap;
 
@@ -177,7 +220,7 @@ provide('duration', duration)
           pointer-events: none;
         }
 
-        .vuecomotive-svg {
+        .potiah-svg {
           overflow: unset;
 
           #logo-vue {

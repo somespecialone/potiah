@@ -8,9 +8,8 @@ For use inside `setup` of components only.
 
  ```vue
 <script setup lang="ts">
-import { useScroll } from "vuecomotive-scroll"
+import { usePotiah } from "potiah"
 
-const { scrollTo, scroll, direction, isScrolling, isReady } = useScroll()
-
+const { scrollTo, potiah, direction, isScrolling } = usePotiah()
 </script>
  ```

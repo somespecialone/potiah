@@ -46,7 +46,7 @@ jobs:
     timeout-minutes: 10
     environment:
       name: npm
-      url: https://www.npmjs.com/package/vuecomotive-scroll
+      url: https://www.npmjs.com/package/potiah
     steps:
       - uses: actions/download-artifact@v3
         with:

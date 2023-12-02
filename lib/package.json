@@ -1,7 +1,7 @@
 {
-  "name": "vuecomotive-scroll",
-  "version": "0.2.2",
-  "description": "Vue wrapper for precious Locomotive scroll",
+  "name": "potiah",
+  "version": "1.0.0-alpha.1",
+  "description": "Vue wrapper for precious Locomotive Scroll",
   "keywords": [
     "typescript",
     "vue",
@@ -11,13 +11,13 @@
     "locomotive-scroll",
     "lenis"
   ],
-  "homepage": "https://vuecomotive.somespecial.one",
+  "homepage": "https://potiah.somespecial.one",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/somespecialone/vuecomotive-scroll.git",
+    "url": "git+https://github.com/somespecialone/potiah.git",
     "directory": "lib"
   },
-  "bugs": "https://github.com/somespecialone/vuecomotive-scroll/issues",
+  "bugs": "https://github.com/somespecialone/potiah/issues",
   "license": "MIT",
   "author": {
     "name": "Dmytro Tkachenko",
@@ -29,31 +29,38 @@
     "LICENSE",
     "README.md"
   ],
+  "sideEffects": false,
   "exports": {
     ".": {
-      "import": "./dist/vuecomotive-scroll.js",
-      "require": "./dist/vuecomotive-scroll.umd.cjs",
-      "types": "./dist/index.d.ts",
-      "style": "./dist/lenis.css"
+      "import": "./dist/potiah.mjs",
+      "require": "./dist/potiah.cjs",
+      "types": "./dist/index.d.ts"
     },
     "./dist/*": "./dist/*"
   },
-  "source": "src/index.ts",
-  "unpkg": "dist/vuecomotive-scroll.umd.cjs",
-  "main": "dist/vuecomotive-scroll.js",
-  "umd:main": "dist/vuecomotive-scroll.umd.cjs",
-  "module": "dist/vuecomotive-scroll.js",
+  "unpkg": "dist/potiah.umd.js",
+  "jsdelivr": "dist/potiah.umd.js",
+  "main": "dist/potiah.mjs",
+  "umd:main": "dist/potiah.umd.js",
+  "module": "dist/potiah.mjs",
   "types": "dist/index.d.ts",
-  "style": "dist/lenis.css",
   "scripts": {
     "prepack": "node ../scripts/prepack.mjs",
     "postpack": "node ../scripts/postpack.mjs",
-    "build": "vite build && vue-tsc"
+    "build": "vite build -m bundled && vite build"
   },
   "peerDependencies": {
     "vue": "^3.3.0"
   },
   "dependencies": {
-    "locomotive-scroll": "5.0.0-beta.8"
+    "locomotive-scroll": "5.0.0-beta.11"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.3",
+    "@vitejs/plugin-vue": "^4.5.1",
+    "typescript": "~5.0.4",
+    "vite": "^5.0.5",
+    "vite-plugin-dts": "^3.6.4",
+    "vue-tsc": "^1.8.24"
   }
 }

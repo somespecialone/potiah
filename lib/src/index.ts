@@ -1,9 +1,5 @@
-import type { TCreateFuncOptions } from './types'
-
-export * from './global'
-
-import VuecomotiveScroll from './scroll'
-import useScroll from './composable'
+export * from './potiah'
+export * from './composable'
 
 export * from './utils'
 export * from './constants'
@@ -11,16 +7,6 @@ export * from './constants'
 import ScrollView from './components/ScrollView.vue'
 import ScrollComponent from './components/ScrollComponent.vue'
 
-export default function createVuecomotiveScroll(options?: TCreateFuncOptions): VuecomotiveScroll {
-  return new VuecomotiveScroll(options)
-}
+export { ScrollView, ScrollComponent }
 
-export { VuecomotiveScroll, useScroll, ScrollView, ScrollComponent }
-
-export type {
-  IVuecomotiveScroll,
-  IIntersectEventPayload,
-  IProgressEventPayload,
-  IScrollElementProps,
-  TPosition
-} from './types'
+export * from './types'
