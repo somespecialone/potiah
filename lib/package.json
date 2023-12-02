@@ -1,7 +1,7 @@
 {
-  "name": "vuecomotive-scroll",
-  "version": "0.2.2",
-  "description": "Vue wrapper for precious Locomotive scroll",
+  "name": "potiah",
+  "version": "1.0.0-alpha.1",
+  "description": "Vue wrapper for precious Locomotive Scroll",
   "keywords": [
     "typescript",
     "vue",
@@ -11,13 +11,13 @@
     "locomotive-scroll",
     "lenis"
   ],
-  "homepage": "https://vuecomotive.somespecial.one",
+  "homepage": "https://potiah.somespecial.one",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/somespecialone/vuecomotive-scroll.git",
+    "url": "git+https://github.com/somespecialone/potiah.git",
     "directory": "lib"
   },
-  "bugs": "https://github.com/somespecialone/vuecomotive-scroll/issues",
+  "bugs": "https://github.com/somespecialone/potiah/issues",
   "license": "MIT",
   "author": {
     "name": "Dmytro Tkachenko",
@@ -31,18 +31,18 @@
   ],
   "exports": {
     ".": {
-      "import": "./dist/vuecomotive-scroll.js",
-      "require": "./dist/vuecomotive-scroll.umd.cjs",
+      "import": "./dist/potiah.js",
+      "require": "./dist/potiah.umd.cjs",
       "types": "./dist/index.d.ts",
       "style": "./dist/lenis.css"
     },
     "./dist/*": "./dist/*"
   },
   "source": "src/index.ts",
-  "unpkg": "dist/vuecomotive-scroll.umd.cjs",
-  "main": "dist/vuecomotive-scroll.js",
-  "umd:main": "dist/vuecomotive-scroll.umd.cjs",
-  "module": "dist/vuecomotive-scroll.js",
+  "unpkg": "dist/potiah.umd.cjs",
+  "main": "dist/potiah.js",
+  "umd:main": "dist/potiah.umd.cjs",
+  "module": "dist/potiah.js",
   "types": "dist/index.d.ts",
   "style": "dist/lenis.css",
   "scripts": {
@@ -54,6 +54,6 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
-    "locomotive-scroll": "5.0.0-beta.8"
+    "locomotive-scroll": "5.0.0-beta.11"
   }
 }

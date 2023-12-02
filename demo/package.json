@@ -1,5 +1,5 @@
 {
-  "name": "@vuecomotive-scroll/demo",
+  "name": "@potiah/demo",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -9,7 +9,7 @@
   "dependencies": {
     "vue": "^3.3.4",
     "vue-router": "^4.2.5",
-    "vuecomotive-scroll": "latest"
+    "potiah": "latest"
   },
   "devDependencies": {
     "@types/node": "^18.16.17",

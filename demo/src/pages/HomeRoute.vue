@@ -3,7 +3,7 @@
 
 import { onMounted, ref, watch } from 'vue'
 
-import { useScroll, ScrollView, ScrollComponent } from 'vuecomotive-scroll'
+import { useScroll, ScrollView, ScrollComponent } from 'potiah'
 
 const flag = ref(true)
 const duration = ref(1.4)
@@ -24,11 +24,12 @@ onMounted(() => {
 })
 
 function handleMounted() {}
+
 function handleInsersect(d) {}
 </script>
 
 <template>
-  <ScrollView class="home-route" :duration="duration" css-direction>
+  <ScrollView :duration="duration" css-direction root>
     <header>
       <a href="#top">top</a>
       <a href="#zero1">zero1</a>
@@ -65,11 +66,6 @@ header {
   display: flex;
   justify-content: center;
   gap: 1em;
-}
-
-.home-route {
-  height: 100vh;
-  overflow: hidden;
 }
 
 .zero {

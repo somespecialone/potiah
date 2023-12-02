@@ -13,14 +13,14 @@ so don't use dynamic rendering or change width/height properties of elements ins
 
 ## Props
 
-| Property name | Type             | Reactive | Default value | Description                                                                                                                                                        |
-|---------------|------------------|:--------:|---------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| root          | boolean          |    -     | *false*       | Specifies when the component will wrap and listen to the scroll event on the entire document or create wrapper & content elements.                                 |
-| cssProgress   | boolean          |    +     | *false*       | Specifies whether or not to display the progress value on the root element in the `--wrapper-progress` CSS custom property (variable). Possible values are 0 to 1. |
-| cssDirection  | boolean          |    +     | *false*       | Same as `cssProgress` ⬆️, but in `--scroll-direction` property. Possible values are -1 (up), 1 (down).                                                             |
-| wrapperIs     | string/Component |    -     | `div`         | Specifies which component to render. Same as `is` prop on [component](https://vuejs.org/api/built-in-special-elements.html#component).                             |
-| contentIs     | string/Component |    -     | `div`         | ⬆️                                                                                                                                                                 |
-| horizontal    | boolean          |    -     | *false*       | Scroll orientation. Default - `vertical`                                                                                                                           |
+| Property name | Type    | Reactive | Default value | Description                                                                                                                                                     |
+|---------------|---------|:--------:|---------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| root          | boolean |    -     | *false*       | Specifies when the component will wrap and listen to the scroll event on the entire document or create wrapper & content elements.                              |
+| cssProgress   | boolean |    +     | *false*       | Specifies whether or not to display the progress value on the root element in the `--view-progress` CSS custom property (variable). Possible values are 0 to 1. |
+| cssDirection  | boolean |    +     | *false*       | Same as `cssProgress` ⬆️, but in `--scroll-direction` property. Possible values are -1 (up), 1 (down).                                                          |
+| wrapperIs     | string  |    -     | `div`         | Specifies which HTML tag element to render.                                                                                                                     |
+| contentIs     | string  |    -     | `div`         | ⬆️                                                                                                                                                              |
+| horizontal    | boolean |    -     | *false*       | Scroll orientation. Default - `vertical`                                                                                                                        |
 
 Other props are [options from Lenis](https://scroll.locomotive.ca/docs/#/options?id=lenisoptions) and non-reactive.
 
@@ -53,7 +53,7 @@ If you need ref to wrapper or/and content elements you can find it on `Lenis` in
 <script setup lang="ts">
 import { watch } from "vue";
 
-import { useScroll } from "vuecomotive-scroll";
+import { useScroll } from "potiah";
 
 const { scroll, isReady } = useScroll();
 

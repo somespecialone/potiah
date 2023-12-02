@@ -1,5 +1,5 @@
 {
-  "name": "@vuecomotive-scroll/root",
+  "name": "@potiah/root",
   "private": true,
   "scripts": {
     "demo:dev": "pnpm --filter demo dev",
@@ -8,7 +8,7 @@
     "docs:dev": "pnpm --filter docs dev",
     "docs:build": "pnpm --filter docs build",
     "docs:preview": "pnpm --filter docs preview",
-    "lib:build": "pnpm --filter vuecomotive-scroll build"
+    "lib:build": "pnpm --filter potiah build"
   },
   "devDependencies": {
     "@types/node": "^18.16.17",

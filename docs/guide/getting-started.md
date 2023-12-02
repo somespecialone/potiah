@@ -8,13 +8,15 @@ import pkg from "../../lib/package.json";
 
 # Getting started
 
-## What is Vuecomotive Scroll?
+## What is Potiah?
 
-Vuecomotive Scroll is a thin [Vue.js](https://vuejs.org) wrapper for
-precious [Locomotive Scroll v5](https://github.com/locomotivemtl/locomotive-scroll) 🚂.
+_Potiah_ (pronounced `/pot'jʌɦ/`, means _train_ in Ukrainian) is a thin [Vue.js](https://vuejs.org) wrapper for
+precious [Locomotive Scroll](https://github.com/locomotivemtl/locomotive-scroll) 🚂.
 
-It utilizes native `Vue` features such as components and composables to give maximum control over `LocomotiveScroll` API
-to developer and make it easier to integrate it into a `Vue` app.
+> _"It utilizes native `Vue` features such as components and composables to give maximum control over `LocomotiveScroll`
+> API to developer and make it easier to integrate it into a `Vue` app."_
+>
+> ChatGPT
 
 Core of the library:
 
@@ -44,15 +46,15 @@ Best regards!
 :::code-group
 
 ```sh [npm]
-npm install vuecomotive-scroll
+npm install potiah
 ```
 
 ```sh [pnpm]
-pnpm add vuecomotive-scroll
+pnpm add potiah
 ```
 
 ```sh [yarn]
-yarn add vuecomotive-scroll
+yarn add potiah
 ```
 
 :::
@@ -62,11 +64,11 @@ yarn add vuecomotive-scroll
 :::code-group
 
 ```html-vue [specified version]
-<script src="https://unpkg.com/vuecomotive-scroll@{{ pkg.version }}"></script>
+<script src="https://unpkg.com/potiah@{{ pkg.version }}"></script>
 ```
 
 ```html [latest]
-<script src="https://unpkg.com/vuecomotive-scroll"></script>
+<script src="https://unpkg.com/potiah"></script>
 ```
 
 :::
@@ -74,7 +76,7 @@ yarn add vuecomotive-scroll
 Also note, that you need to load [lenis styles](https://github.com/studio-freight/lenis#considerations) from CDN too
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/vuecomotive-scroll/dist/lenis.css">
+<link rel="stylesheet" href="https://unpkg.com/potiah/dist/lenis.css">
 ```
 
 ## Setup 🛠️
@@ -82,7 +84,7 @@ Also note, that you need to load [lenis styles](https://github.com/studio-freigh
 If you use package manager import [lenis styles](https://github.com/studio-freight/lenis#considerations) in your code:
 
 ```js
-import 'vuecomotive-scroll/dist/lenis.css'
+import 'potiah/dist/lenis.css'
 ```
 
 Create a scroll instance and pass it to the app as a plugin:
@@ -90,20 +92,20 @@ Create a scroll instance and pass it to the app as a plugin:
 ```js {3,4,9,11}
 import { createApp } from 'vue'
 
-import 'vuecomotive-scroll/dist/lenis.css'  // if you use package manager
-import createVuecomotiveScroll from 'vuecomotive-scroll'
+import 'potiah/dist/lenis.css'  // if you use package manager
+import createPotiah from 'potiah'
 
 import App from './App.vue'
 
 const app = createApp(App)
-const scroll = createVuecomotiveScroll()
+const scroll = createPotiah()
 
 app.use(scroll)
 app.mount('#app')
 ```
 
 :::details Creating instance arguments
-`createVuecomotiveScroll` takes options object arg.
+`createPotiah` takes options object arg.
 
 [//]: # (TODO link to reference args)
 :::

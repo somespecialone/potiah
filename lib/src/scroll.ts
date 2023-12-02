@@ -1,4 +1,4 @@
-import { ref, markRaw } from 'vue'
+import { ref, markRaw, nextTick } from 'vue'
 import type { App, Ref } from 'vue'
 
 import type Lenis from '@studio-freight/lenis'
@@ -8,12 +8,11 @@ import type Core from 'locomotive-scroll/dist/types/core/Core'
 import type { lenisTargetScrollTo, ILenisScrollToOptions, ILenisOptions } from 'locomotive-scroll/dist/types/types'
 
 import { scrollInstKey, scrollToKey } from './keys'
-import ScrollView from './components/ScrollView.vue'
-import ScrollComponent from './components/ScrollComponent.vue'
 import { infiniteGenerator } from './utils'
+import { InitDoneCallbackData } from './types'
 
 // @ts-expect-error
-export default class VuecomotiveScroll extends LocomotiveScroll {
+export default class Potiah extends LocomotiveScroll {
   public isReady: Ref<boolean>
   public direction: Ref<number>
   public isScrolling: Ref<boolean>
@@ -70,8 +69,6 @@ export default class VuecomotiveScroll extends LocomotiveScroll {
     this.isScrolling = ref(false)
     const scrollTo = this.scrollTo.bind(this)
 
-    app.component('ScrollView', ScrollView)
-    app.component('ScrollComponent', ScrollComponent)
     app.config.globalProperties.$scroll = this
     app.config.globalProperties.$scrollTo = scrollTo
 
@@ -85,15 +82,17 @@ export default class VuecomotiveScroll extends LocomotiveScroll {
   /**
    * @internal
    */
-  init(doneCallback = (data: { core: Core; lenis: Lenis }) => {}): Promise<void> {
+  init(doneCallback = (data: InitDoneCallbackData) => {}): Promise<InitDoneCallbackData> {
     const self = this
-    // max performance
+    // raw vars for max performance
     let direction = 1
     let isScrolling = false
 
     // @ts-expect-error
     this.scrollCallback = (l: Lenis) => {
-      direction != l.direction && (this.direction.value = direction = l.direction)
+      if (direction != l.direction) {
+        this.direction.value = direction = l.direction
+      }
     }
 
     // @ts-expect-error
@@ -111,21 +110,24 @@ export default class VuecomotiveScroll extends LocomotiveScroll {
           },
           set(value: boolean) {
             descr.set!.call(this, value)
-            isScrolling != value && (self.isScrolling.value = isScrolling = value)
+            if (isScrolling != value) {
+              self.isScrolling.value = isScrolling = value
+            }
           }
         })
 
         this.isReady.value = true
 
-        doneCallback({ core: this.core!, lenis: this.lenis! })
-        resolve()
+        const data = { core: this.core!, lenis: this.lenis! }
+        doneCallback(data)
+        resolve(data)
       })
     })
   }
 
-  public destroy() {
+  public async destroy() {
     super.destroy()
-    // clear options
+    await nextTick() // wait until all instances are destroyed and clean options then
     // @ts-expect-error
     this.lenisOptions = {}
     this.isReady.value = false

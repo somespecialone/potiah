@@ -1,9 +1,9 @@
 import { inject } from 'vue'
 
-import type { IVuecomotiveScroll } from './types'
+import type { IScroll } from './types'
 import { scrollInstKey, scrollToKey } from './keys'
 
-export default function useScroll(): IVuecomotiveScroll {
+export default function useScroll(): IScroll {
   const scroll = inject(scrollInstKey)!
   const scrollTo = inject(scrollToKey)!
 

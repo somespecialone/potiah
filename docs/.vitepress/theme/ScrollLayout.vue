@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref, watch, watchEffect, provide } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch, watchEffect, provide, nextTick } from 'vue'
 import { useRoute, useData } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 
-import { ScrollView, ScrollComponent, useScroll } from 'vuecomotive-scroll'
+import { ScrollView, ScrollComponent, useScroll } from 'potiah'
 
-import HomeLogo from './HomeLogo.vue'
-import MouseIco from './MouseIco.vue'
-import ArrowIco from './ArrowIco.vue'
+import HomeLogo from './components/HomeLogo.vue'
+import MouseIco from './components/MouseIco.vue'
+import ArrowIco from './components/ArrowIco.vue'
 
-import { DEF_DUR, PROGRESS_THRESHOLD } from '../../constants'
+import { DEF_DUR, PROGRESS_THRESHOLD } from '../constants'
 
 const { Layout } = DefaultTheme
 
@@ -62,6 +62,40 @@ onMounted(() => {
 onBeforeUnmount(() => windowScrollTo && (window.scrollTo = windowScrollTo))
 
 provide('duration', duration)
+
+// animate dark <> light mode switch
+// https://github.com/vite-pwa/docs/blob/8917eccda8c13c29cd151ae91a0e398e3394eb91/.vitepress/theme/PwaLayout.vue
+const { isDark } = data
+
+function enableTransitions() {
+  return 'startViewTransition' in document && window.matchMedia('(prefers-reduced-motion: no-preference)').matches
+}
+
+provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
+  if (!enableTransitions()) {
+    isDark.value = !isDark.value
+    return
+  }
+
+  const clipPath = [
+    `circle(0px at ${x}px ${y}px)`,
+    `circle(${Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y))}px at ${x}px ${y}px)`
+  ]
+
+  await document.startViewTransition(async () => {
+    isDark.value = !isDark.value
+    await nextTick()
+  }).ready
+
+  document.documentElement.animate(
+    { clipPath: isDark.value ? clipPath.reverse() : clipPath },
+    {
+      duration: 300,
+      easing: 'ease-in',
+      pseudoElement: `::view-transition-${isDark.value ? 'old' : 'new'}(root)`
+    }
+  )
+})
 </script>
 
 <template>
@@ -124,7 +158,7 @@ provide('duration', duration)
     left: 50%;
 
     color: var(--vp-c-text-2);
-    font-size: clamp(5px, 0.6rem, 1rem);
+    font-size: 0.9vw;
     font-weight: 500;
     white-space: nowrap;
 
@@ -177,7 +211,7 @@ provide('duration', duration)
           pointer-events: none;
         }
 
-        .vuecomotive-svg {
+        .potiah-svg {
           overflow: unset;
 
           #logo-vue {

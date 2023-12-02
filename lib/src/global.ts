@@ -1,17 +1,9 @@
 import type { TScrollTo } from './types'
-import type VuecomotiveScroll from './scroll'
-
-import ScrollView from './components/ScrollView.vue'
-import ScrollComponent from './components/ScrollComponent.vue'
+import type Potiah from './scroll'
 
 declare module '@vue/runtime-core' {
-  export interface GlobalComponents {
-    ScrollView: typeof ScrollView
-    ScrollComponent: typeof ScrollComponent
-  }
-
   export interface ComponentCustomProperties {
-    $scroll: VuecomotiveScroll
+    $scroll: Potiah
     $scrollTo: TScrollTo
   }
 }

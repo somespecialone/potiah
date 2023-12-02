@@ -7,20 +7,22 @@ import type {
   ILocomotiveScrollOptions,
   ILenisOptions
 } from 'locomotive-scroll/dist/types/types'
+import type Core from 'locomotive-scroll/dist/types/core/Core'
+import type Lenis from '@studio-freight/lenis'
 
-import type VuecomotiveScroll from './scroll'
+import type Potiah from './scroll'
 
 export type TCreateFuncOptions = Omit<ILocomotiveScrollOptions, 'lenisOptions' | 'scrollCallback'>
 
 export type TScrollTo = (target: lenisTargetScrollTo, options?: ILenisScrollToOptions) => void
 
-export interface IVuecomotiveScroll {
+export interface IScroll {
   scrollTo: TScrollTo
 
   isReady: Ref<boolean>
   direction: Ref<number>
   isScrolling: Ref<boolean>
-  scroll: VuecomotiveScroll
+  scroll: Potiah
 }
 
 export type TLenisOptions = Omit<ILenisOptions, 'wrapper' | 'content' | 'orientation'>
@@ -64,4 +66,9 @@ export interface IIntersectEventPayload extends IEventPayload {
 
 export interface IProgressEventPayload extends IEventPayload {
   progress: number
+}
+
+export interface InitDoneCallbackData {
+  core: Core
+  lenis: Lenis
 }

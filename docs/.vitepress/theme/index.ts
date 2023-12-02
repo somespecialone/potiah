@@ -4,11 +4,11 @@ import DefaultTheme from 'vitepress/theme'
 
 import './style.css'
 
-import 'vuecomotive-scroll/dist/lenis.css'
-import createVuecomotiveScroll from 'vuecomotive-scroll'
+import 'potiah/dist/lenis.css'
+import createPotiah from 'potiah'
 
 // @ts-ignore
-import Layout from './components/ScrollLayout.vue'
+import Layout from './ScrollLayout.vue'
 // @ts-ignore
 import DocButton from './components/DocButton.vue'
 
@@ -18,6 +18,6 @@ export default <Theme>{
   enhanceApp({ app }) {
     app.component('DocButton', DocButton)
 
-    app.use(createVuecomotiveScroll())
+    app.use(createPotiah())
   }
 }

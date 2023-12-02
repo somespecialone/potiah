@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount, watch, inject } from 'vue'
+import { ref, onBeforeUnmount, watch, inject, onMounted } from 'vue'
 
 import type Lenis from '@studio-freight/lenis'
 
@@ -10,8 +10,8 @@ import { SCROLL_DIRECTION_VAR, WRAPPER_PROGRESS_VAR } from '../constants'
 
 export interface IViewProps {
   root?: boolean
-  wrapperIs?: keyof HTMLElementTagNameMap | string
-  contentIs?: keyof HTMLElementTagNameMap | string
+  wrapperIs?: keyof HTMLElementTagNameMap
+  contentIs?: keyof HTMLElementTagNameMap
   cssProgress?: boolean
   cssDirection?: boolean
   horizontal?: boolean
@@ -42,16 +42,39 @@ watch(
   (d) => props.cssDirection && scroll.lenis!.rootElement.style.setProperty(SCROLL_DIRECTION_VAR, d.toString())
 )
 
+// TODO this cause "[Vue warn]: Invalid watch source" with Nuxt on server side
+watch(props, (n) => {
+  const newProps = assignWithOmit({}, n, ['wrapperIs', 'contentIs', 'horizontal'])
+  scroll.isReady.value && Object.assign(scroll.lenis!.options, newProps)
+  Object.assign(scroll.lenisOptionsGetter, newProps)
+})
+
+const wrapper = ref<HTMLElement>()
+const content = ref<HTMLElement>()
+
 onMounted(async () => {
+  // ensure that previous instance destroyed
+  if (scroll.isReady.value) {
+    await new Promise((resolve) => {
+      const stop = watch(scroll.isReady, (r) => {
+        if (!r) {
+          stop()
+          resolve(null)
+        }
+      })
+    })
+  }
+
   assignWithOmit(scroll.lenisOptionsGetter, props, ['wrapperIs', 'contentIs', 'horizontal'])
   if (props.horizontal) {
     scroll.lenisOptionsGetter.orientation = 'horizontal'
   }
 
-  scroll.init(({ lenis }) => {
+  scroll.lenisOptionsGetter.wrapper = wrapper.value
+  scroll.lenisOptionsGetter.content = content.value
+
+  await scroll.init(({ lenis }) => {
     const rootEl = lenis.rootElement as HTMLElement
-    props.cssProgress && rootEl.style.setProperty(WRAPPER_PROGRESS_VAR, '0')
-    props.cssDirection && rootEl.style.setProperty(SCROLL_DIRECTION_VAR, '1')
 
     lenis.on('scroll', () => {
       cssProgressRaw && rootEl.style.setProperty(WRAPPER_PROGRESS_VAR, lenis.progress.toString())
@@ -60,19 +83,21 @@ onMounted(async () => {
   })
 })
 
-watch(props, (n) => {
-  const newProps = assignWithOmit({}, n, ['wrapperIs', 'contentIs'])
-  scroll.isReady.value && Object.assign(scroll.lenis!.options, newProps)
-  Object.assign(scroll.lenisOptionsGetter, newProps)
-})
-
 onBeforeUnmount(() => scroll.destroy())
 </script>
 
 <template>
   <slot v-if="root" />
-  <component v-else :is="wrapperIs as string" :ref="(el) => el && (scroll.lenisOptionsGetter.wrapper = el)">
-    <component :is="contentIs as string" :ref="(el) => el && (scroll.lenisOptionsGetter.content = el)">
+  <component
+    v-else
+    :is="wrapperIs"
+    ref="wrapper"
+    :style="{
+      [WRAPPER_PROGRESS_VAR]: cssProgress ? '0' : undefined,
+      [SCROLL_DIRECTION_VAR]: cssDirection ? '1' : undefined
+    }"
+  >
+    <component :is="contentIs" ref="content">
       <slot />
     </component>
   </component>

@@ -10,14 +10,15 @@ export default defineConfig({
     // patch Locomotive Scroll
     modify({
       'wrapper: window,': '\n',
-      'content: document.documentElement,': '\n'
+      'content: document.documentElement,': '\n',
+      'eventsTarget: window,': '\n'
     })
   ],
   build: {
     sourcemap: true,
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'VuecomotiveScroll'
+      name: 'Potiah'
     },
     rollupOptions: {
       external: ['vue'],

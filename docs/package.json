@@ -1,5 +1,5 @@
 {
-  "name": "@vuecomotive-scroll/docs",
+  "name": "@potiah/docs",
   "private": true,
   "type": "module",
   "scripts": {
@@ -10,6 +10,6 @@
   "devDependencies": {
     "sass": "^1.63.4",
     "vitepress": "1.0.0-rc.24",
-    "vuecomotive-scroll": "workspace:^"
+    "potiah": "workspace:^"
   }
 }

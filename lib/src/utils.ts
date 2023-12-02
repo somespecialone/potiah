@@ -28,3 +28,7 @@ export function* infiniteGenerator() {
     yield i++
   }
 }
+
+export function mapRange(x: number, from: number, to: number, rangeMin = 0, rangeMax = 1): number {
+  return Math.max(Math.min(((x - from) * (rangeMax - rangeMin)) / (to - from) + rangeMin, rangeMax), rangeMin)
+}

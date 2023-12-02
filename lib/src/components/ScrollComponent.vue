@@ -10,7 +10,7 @@ import { boolToDataAttr } from '../utils'
 import { INTERSECT_EVENT_SUFFIX, PROGRESS_EVENT_SUFFIX } from '../constants'
 
 export interface IComponentProps {
-  is?: keyof HTMLElementTagNameMap | string
+  is?: keyof HTMLElementTagNameMap
 }
 
 // TODO Do I need to handle css progress by myself?
@@ -45,7 +45,7 @@ watchEffect(() => {
   }
 })
 
-function handleScrollEvent({ detail }: CustomEvent<IIntersectEventPayload>) {
+function handleIntersectEvent({ detail }: CustomEvent<IIntersectEventPayload>) {
   inView.value = detail.way === 'enter'
   emit('intersect', detail)
 }
@@ -55,7 +55,7 @@ function handleProgressEvent({ detail }: CustomEvent<IProgressEventPayload>) {
 }
 
 onMounted(() => {
-  window.addEventListener(intersectEventName, handleScrollEvent)
+  window.addEventListener(intersectEventName, handleIntersectEvent)
   window.addEventListener(progressEventName, handleProgressEvent)
 })
 
@@ -94,7 +94,7 @@ watch(
 )
 
 onBeforeUnmount(() => {
-  window.removeEventListener(intersectEventName, handleScrollEvent)
+  window.removeEventListener(intersectEventName, handleIntersectEvent)
   window.removeEventListener(progressEventName, handleProgressEvent)
 })
 
@@ -105,7 +105,7 @@ defineExpose({ el, scrollElement, inView })
   <component
     class="scroll-component"
     :class="{ [inViewClass]: inView }"
-    :is="is as string"
+    :is="is"
     ref="el"
     data-scroll
     :data-scroll-call="intersectEventName"

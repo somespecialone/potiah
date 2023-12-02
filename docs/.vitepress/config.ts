@@ -4,7 +4,7 @@ import { defineConfig } from 'vitepress'
 import pkg from '../../lib/package.json'
 
 export default defineConfig({
-  title: 'Vuecomotive',
+  title: 'Potiah',
   description: 'Vue.js wrapper for Locomotive Scroll',
   appearance: 'dark',
   lastUpdated: true,
@@ -17,9 +17,9 @@ export default defineConfig({
       { text: 'Core', link: '/core/scroll' },
       {
         text: 'Playground',
-        link: 'https://stackblitz.com/github/somespecialone/vuecomotive-scroll/tree/master/demo/?file=src%2FApp.vue'
+        link: 'https://stackblitz.com/github/somespecialone/potiah/tree/master/demo/?file=src%2FApp.vue'
       },
-      { text: pkg.version, link: 'https://github.com/somespecialone/vuecomotive-scroll/releases/tag/v' + pkg.version },
+      { text: pkg.version, link: 'https://github.com/somespecialone/potiah/releases/tag/v' + pkg.version },
       { text: 'Support Ukraine', link: 'https://war.ukraine.ua/support-ukraine/' }
     ],
     sidebar: [
@@ -40,9 +40,9 @@ export default defineConfig({
         ]
       }
     ],
-    socialLinks: [{ icon: 'github', link: 'https://github.com/somespecialone/vuecomotive-scroll' }],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/somespecialone/potiah' }],
     editLink: {
-      pattern: 'https://github.com/somespecialone/vuecomotive-scroll/edit/master/docs/:path',
+      pattern: 'https://github.com/somespecialone/potiah/edit/master/docs/:path',
       text: 'Edit this page on GitHub'
     }
   },

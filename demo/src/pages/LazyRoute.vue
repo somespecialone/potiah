@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useScroll, ScrollView, ScrollComponent } from 'vuecomotive-scroll'
+import { useScroll, ScrollView, ScrollComponent } from 'potiah'
 </script>
 
 <template>
-  <ScrollView class="lazy-route" horizontal>
+  <ScrollView class="lazy-route" horizontal css-progress>
     <ScrollComponent class="scroll-el-1">Scroll element #1</ScrollComponent>
     <ScrollComponent class="scroll-el-2" :speed="-0.5">Scroll element #2</ScrollComponent>
     <ScrollComponent class="scroll-el-3">Scroll element #3</ScrollComponent>

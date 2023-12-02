@@ -11,29 +11,30 @@ Must be rendered inside [ScrollView](scroll-view).
 
 ## Component props
 
-| Property name | Type             | Reactive | Reference / Default value                                                                              | Description                                                                                                                            |
-|---------------|------------------|:--------:|--------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
-| is            | string/Component |    -     | `div`                                                                                                  | Specifies which component to render. Same as `is` prop on [component](https://vuejs.org/api/built-in-special-elements.html#component). |
-| inViewClass   | string           |    +     | `is-inview`                                                                                            | Specifies which class to apply to an element when it is in view.                                                                       |
-| position      | string           |    +     | [data-scroll-position](https://scroll.locomotive.ca/docs/#/attributes?id=data-scroll-position)         | ⬅️                                                                                                                                     |
-| offset        | string           |    -     | [data-scroll-offset](https://scroll.locomotive.ca/docs/#/attributes?id=data-scroll-offset)             | ⬅️                                                                                                                                     |
-| repeat        | boolean          |    -     | [data-scroll-repeat](https://scroll.locomotive.ca/docs/#/attributes?id=data-scroll-repeat)             | ⬅️                                                                                                                                     |
-| speed         | number           |    -     | [data-scroll-speed](https://scroll.locomotive.ca/docs/#/attributes?id=data-scroll-speed)               | ⬅️                                                                                                                                     |
-| cssProgress   | boolean          |    +     | [data-scroll-css-progress](https://scroll.locomotive.ca/docs/#/attributes?id=data-scroll-css-progress) | ⬅️                                                                                                                                     |
-| ignoreFold    | boolean          |    +     | [data-scroll-ignore-fold](https://scroll.locomotive.ca/docs/#/attributes?id=data-scroll-ignore-fold)   | ⬅️                                                                                                                                     |
-| touchSpeed    | boolean          |    +     | [data-enable-touch-speed](https://scroll.locomotive.ca/docs/#/attributes?id=data-enable-touch-speed)   | ⬅️                                                                                                                                     |
+| Property name | Type    | Reactive | Reference / Default value                                                                              | Description                                                      |
+|---------------|---------|:--------:|--------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
+| is            | string  |    -     | `div`                                                                                                  | Specifies which HTML tag element to render.                      |
+| inViewClass   | string  |    +     | `is-inview`                                                                                            | Specifies which class to apply to an element when it is in view. |
+| position      | string  |    +     | [data-scroll-position](https://scroll.locomotive.ca/docs/#/attributes?id=data-scroll-position)         | ⬅️                                                               |
+| offset        | string  |    -     | [data-scroll-offset](https://scroll.locomotive.ca/docs/#/attributes?id=data-scroll-offset)             | ⬅️                                                               |
+| repeat        | boolean |    -     | [data-scroll-repeat](https://scroll.locomotive.ca/docs/#/attributes?id=data-scroll-repeat)             | ⬅️                                                               |
+| speed         | number  |    -     | [data-scroll-speed](https://scroll.locomotive.ca/docs/#/attributes?id=data-scroll-speed)               | ⬅️                                                               |
+| cssProgress   | boolean |    +     | [data-scroll-css-progress](https://scroll.locomotive.ca/docs/#/attributes?id=data-scroll-css-progress) | ⬅️                                                               |
+| ignoreFold    | boolean |    +     | [data-scroll-ignore-fold](https://scroll.locomotive.ca/docs/#/attributes?id=data-scroll-ignore-fold)   | ⬅️                                                               |
+| touchSpeed    | boolean |    +     | [data-enable-touch-speed](https://scroll.locomotive.ca/docs/#/attributes?id=data-enable-touch-speed)   | ⬅️                                                               |
 
 ## Events
 
 Emit `progress` and `intersect` events.
 `progress` event handler will
-take [IProgressEventPayload](https://github.com/somespecialone/vuecomotive-scroll/blob/master/lib/src/types.ts)
+take [IProgressEventPayload](https://github.com/somespecialone/potiah/blob/master/lib/src/types.ts)
 and `intersect` event handler will
-take [IIntersectEventPayload](https://github.com/somespecialone/vuecomotive-scroll/blob/master/lib/src/types.ts)
+take [IIntersectEventPayload](https://github.com/somespecialone/potiah/blob/master/lib/src/types.ts)
 
-```vue {2,4-6,8-10,14,15}
+```vue {2,3,5-7,9-11,15,16}
 <script setup lang="ts">
-import type { IProgressEventPayload, IIntersectEventPayload } from "vuecomotive-scroll";
+import { ScrollComponent } from "potiah";
+import type { IProgressEventPayload, IIntersectEventPayload } from "potiah";
 
 function handleProgress({ target, progress }: IProgressEventPayload) {
   // some work...
@@ -58,9 +59,11 @@ function handleIntersect({ target, way, from }: IIntersectEventPayload) {
 
 Pass only `inView` to slot via `v-slot`.
 
-```vue {6-8,13}
+```vue {8-10,15}
 <script setup lang="ts">
 import { onMounted } from "vue"
+
+import { ScrollComponent } from "potiah";
 
 const comp = ref()
 onMounted(() => {

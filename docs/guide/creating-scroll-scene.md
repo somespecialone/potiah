@@ -4,7 +4,7 @@ scroll: true
 
 <script setup>
 import { inject, computed } from "vue"
-import { useScroll } from "vuecomotive-scroll"
+import { useScroll } from "potiah"
 
 const { direction, isScrolling } = useScroll()
 
@@ -24,21 +24,15 @@ const scrollText = computed(() => {
 
 # Creating scroll scene
 
-There will be only simple code examples to introduce the basic concepts and capabilities of `VuecomotiveScroll`.
+There will be only simple code examples to introduce the basic concepts and capabilities of `Potiah`.
 
 ## Basic
 
 Wrap all your app components with [ScrollView](../core/scroll-view).
 
-:::tip Typings
-The `ScrollView` and `ScrollComponent` components are registered and available globally, but if your IDE complains about
-the
-typing, you can import them.
-:::
-
 ```vue {2,6-8}
 <script setup lang="ts">
-import { ScrollView } from 'vuecomotive-scroll' // optional for typings
+import { ScrollView } from 'potiah'
 </script>
 
 <template>
@@ -55,7 +49,7 @@ content and won't create any additional HTML elements.
 :::details Attributes
 Actually you can define `data-*` attributes on components/elements within `ScrollView` and `Locomotive Scroll` will
 work. But for this purpose the library provides `ScrollComponent` component with many features.
-[See there](../core/scroll-component).
+[Look here](../core/scroll-component).
 :::
 
 :::warning Single scroll instance
@@ -69,9 +63,10 @@ latter will work and previous not.
 `ScrollView` properties include
 some [lenis instance options](https://github.com/studio-freight/lenis#instance-settings).
 
-```vue {4,9-11}
+```vue {5,9-12}
 <script setup lang="ts">
 import { ref } from 'vue'
+import { ScrollView } from 'potiah'
 
 const duration = ref(1.2)
 </script>
@@ -114,7 +109,11 @@ native HTML element inside. The `is` prop specifies which HTML element will be r
 Not all props are reactive (react to updates)! You can see details on [component page](../core/scroll-component).
 :::
 
-```vue {3-8}
+```vue {7-12}
+<script setup lang="ts">
+import { ScrollView, ScrollComponent } from 'potiah'
+</script>
+
 <template>
   <ScrollView root>
     <ScrollComponent is="section" class="first-scroll-component" :speed="0.2">
@@ -145,7 +144,7 @@ This page uses the `scrollTo` function to scroll to anchors by clicking on links
 <script setup lang="ts">
 import { computed } from "vue";
 
-import { useScroll } from "vuecomotive-scroll";
+import { useScroll, ScrollView } from "potiah";
 
 const { scrollTo, direction, isScrolling } = useScroll();
 
@@ -182,7 +181,11 @@ as shown below:
 
 For scrolling to work specify `height` and `overflow` style properties for `ScrollView` wrapper element.
 
-```vue {15-16}
+```vue {19-20}
+<script setup lang="ts">
+import { ScrollView } from 'potiah'
+</script>
+
 <template>
   <header>
     <!-- header content -->
@@ -212,7 +215,11 @@ There are two global properties of app available in `template`:
 * `$scrollTo` - same as the `scrollTo` function returned from `useScroll`
 * `$scroll` - `scroll` instance
 
-```vue {3,4}
+```vue {7,8}
+<script setup lang="ts">
+import { ScrollView } from 'potiah'
+</script>
+
 <template>
   <ScrollView root>
     <button @click="$scrollTo('#target-id')">Scroll To</button>
@@ -233,7 +240,7 @@ There are two global properties of app available in `template`:
 ## Try It Online
 
 If you want to see how things works you can try it directly in your browser on
-[StackBlitz](https://stackblitz.com/github/somespecialone/vuecomotive-scroll/tree/master/demo/?file=src%2FApp.vue)
+[StackBlitz](https://stackblitz.com/github/somespecialone/potiah/tree/master/demo/?file=src%2FApp.vue)
 
 ## Limitations
 
