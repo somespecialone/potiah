@@ -1,6 +1,5 @@
 import { defineConfig } from 'vitepress'
 
-// @ts-ignore
 import pkg from '../../lib/package.json'
 
 export default defineConfig({
@@ -55,7 +54,6 @@ export default defineConfig({
     }
   },
   markdown: { theme: { light: 'material-theme-lighter', dark: 'material-theme-darker' } },
-  sitemap: {
-    hostname: 'https://potiah.somespecialone.one'
-  }
+  sitemap: { hostname: 'https://potiah.somespecialone.one' },
+  cleanUrls: true
 })

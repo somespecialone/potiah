@@ -28,9 +28,10 @@ precious [Locomotive Scroll](https://github.com/locomotivemtl/locomotive-scroll)
 
 ---
 
-⚠️ The project is unstable and depends
-on [Locomotive Scroll v5 beta](https://github.com/locomotivemtl/locomotive-scroll/tree/v5-beta).
-So there might be some breaking changes in the future unless stable (first major) version is released. Best regards!
+> [!WARNING]
+> The project is unstable and depends
+> on [Locomotive Scroll v5 beta](https://github.com/locomotivemtl/locomotive-scroll/tree/v5-beta).
+> So there might be some breaking changes in the future unless stable (first major) version is released. Best regards!
 
 ---
 
@@ -140,6 +141,7 @@ function handleClickOnSomeElement({target}) {
   attributes from [Locomotive Scroll element](https://scroll.locomotive.ca/docs/#/attributes).
 * `usePotiah` - composable that returns current `Potiah` instance, `scrollTo` function, refs with scroll data.
 
+> [!TIP]
 > For more information please visit [Documentation 📖](https://potiah.somespecial.one)
 
 ## Credits:
