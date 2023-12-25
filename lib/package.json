@@ -61,6 +61,6 @@
     "typescript": "~5.0.4",
     "vite": "^5.0.5",
     "vite-plugin-dts": "^3.6.4",
-    "vue-tsc": "^1.8.24"
+    "vue-tsc": "^1.8.26"
   }
 }
